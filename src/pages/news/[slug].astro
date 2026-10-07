@@ -12,7 +12,7 @@ export async function getStaticPaths() {
 
 const { post, more } = Astro.props;
 const { Content } = await render(post);
-const { title, date, datePrecision, summary, tags, image, imageAlt, imageCredit } = post.data;
+const { title, date, datePrecision, summary, tags, image, imageAlt, imageCredit, imageMaxWidth } = post.data;
 const url = new URL(`/news/${post.id}/`, SITE.url).href;
 const linkedin = `https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(url)}`;
 const bluesky = `https://bsky.app/intent/compose?text=${encodeURIComponent(`${title} ${url}`)}`;
@@ -34,7 +34,7 @@ const bluesky = `https://bsky.app/intent/compose?text=${encodeURIComponent(`${ti
           {
             image && (
               <figure class="hero-fig">
-                <img class="hero-img" src={image} alt={imageAlt ?? ''} />
+                <img class="hero-img" src={image} alt={imageAlt ?? ''} style={imageMaxWidth ? `max-width:${imageMaxWidth}px` : undefined} />
                 {imageCredit && <figcaption>{imageCredit}</figcaption>}
               </figure>
             )

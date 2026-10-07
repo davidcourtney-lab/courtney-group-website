@@ -27,6 +27,8 @@ const news = defineCollection({
     imageCredit: z.string().optional(),
     // 'contain' shows the whole image (best for paper figures); 'cover' fills the card (best for photos).
     imageFit: z.enum(['cover', 'contain']).default('cover'),
+    /** Cap the photo's width on the post page (pixels), for small images such as headshots. */
+    imageMaxWidth: z.number().int().positive().optional(),
     draft: z.boolean().default(false),
   }),
 });
