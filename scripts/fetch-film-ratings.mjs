@@ -20,18 +20,14 @@ try {
 const today = new Date().toISOString().slice(0, 10);
 for (const id of ids) {
   try {
-    const res = await fetch(`https://www.imdb.com/title/${id}/`, {
-      headers: {
-        'User-Agent': 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/126 Safari/537.36',
-        'Accept-Language': 'en-GB,en;q=0.9',
-      },
-    });
+    // IMDb blocks automated page requests, so ratings come from the Cinemeta catalogue,
+    // which mirrors IMDb ratings by IMDb id.
+    const res = await fetch(`https://v3-cinemeta.strem.io/meta/movie/${id}.json`);
     if (!res.ok) throw new Error(`HTTP ${res.status}`);
-    const html = await res.text();
-    const m = html.match(/"aggregateRating":\{[^}]*"ratingValue":\s*([\d.]+)/);
-    if (!m) throw new Error('no rating found');
-    ratings[id] = { rating: Number(m[1]), checked: today };
-    console.log(`${id}: ${m[1]}`);
+    const rating = Number((await res.json())?.meta?.imdbRating);
+    if (!rating) throw new Error('no rating found');
+    ratings[id] = { rating, checked: today };
+    console.log(`${id}: ${rating}`);
   } catch (err) {
     console.warn(`skipped ${id}: ${err.message}`);
   }
