@@ -75,12 +75,17 @@ try {
 for (const p of publications) {
   const k = key(p.title);
   const doi = cleanDoi(p.doi);
-  let hit = works.find((w) => (doi && cleanDoi(w.doi) === doi) || sameTitle(w.title, p.title));
+  // A paper can appear more than once (preprint, correction, journal version): take the most cited.
+  const best = (list) =>
+    list
+      .filter((w) => (doi && cleanDoi(w.doi) === doi) || sameTitle(w.title, p.title))
+      .sort((a, b) => (b.cited_by_count ?? 0) - (a.cited_by_count ?? 0))[0];
+  let hit = best(works);
 
   if (!hit) {
     try {
       const found = await getJson(openAlexUrl('works', { search: p.title, 'per-page': '5', select: 'id,doi,title,cited_by_count' }));
-      hit = found.results.find((w) => (doi && cleanDoi(w.doi) === doi) || sameTitle(w.title, p.title));
+      hit = best(found.results);
     } catch (err) {
       console.warn(`OpenAlex search failed for "${p.title}": ${err.message}`);
     }
