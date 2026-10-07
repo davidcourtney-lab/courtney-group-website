@@ -7,6 +7,7 @@ tags: [Papers]
 image: /images/science/mkrn2-fig1-ppat-2024.png
 imageAlt: Figure 1 of the MKRN2 study on cellular RNA-binding proteins during influenza infection
 imageCredit: 'Fig. 1 from Bonazza et al., PLoS Pathogens (2024), CC BY 4.0'
+imageFit: contain
 ---
 
 Viruses carry very few genes of their own, so they rely on the host cell's RNA-binding proteins to process, move and translate their RNA.

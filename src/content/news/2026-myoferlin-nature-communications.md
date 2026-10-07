@@ -6,6 +6,7 @@ tags: [Papers]
 image: /images/science/myoferlin-model-ncomms-2026.jpg
 imageAlt: Model figure showing myoferlin and EHD proteins in Rab11-mediated vRNP trafficking vesicles in uninfected and influenza-infected cells
 imageCredit: 'Fig. 7 from Bonazza et al., Nature Communications (2026), CC BY 4.0'
+imageFit: contain
 ---
 
 Influenza A virus packages its eight genome segments as viral ribonucleoproteins (vRNPs). After they leave the nucleus, those vRNPs have to travel through the cytoplasm to the plasma membrane, where new virus particles bud.

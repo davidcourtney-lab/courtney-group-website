@@ -42,6 +42,15 @@ content:
       - name: imageAlt
         label: Describe the photo (for screen readers)
         type: string
+      - name: imageCredit
+        label: Photo credit (needed for images that are not ours)
+        type: string
+      - name: imageFit
+        label: How to fit the photo on cards
+        type: select
+        default: cover
+        options:
+          values: [cover, contain]
       - name: draft
         label: Save as draft (hidden from the site)
         type: boolean

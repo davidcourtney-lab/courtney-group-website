@@ -5,14 +5,14 @@ interface Props {
   feature?: boolean;
 }
 const { post, feature = false } = Astro.props;
-const { title, date, datePrecision, summary, tags, image, imageAlt } = post.data;
+const { title, date, datePrecision, summary, tags, image, imageAlt, imageFit } = post.data;
 ---
 
 <article class:list={['card', { feature, 'no-image': !image }]} data-tags={tags.join('|')}>
   {
     image ? (
       <a class="media" href={`/news/${post.id}/`} tabindex="-1" aria-hidden="true">
-        <img class:list={{ figure: image.startsWith('/images/science/') }} src={image} alt={imageAlt ?? ''} loading="lazy" />
+        <img class:list={{ figure: imageFit === 'contain' }} src={image} alt={imageAlt ?? ''} loading="lazy" />
       </a>
     ) : (
       <a class="media glyph" href={`/news/${post.id}/`} tabindex="-1" aria-hidden="true" style={`--c:${TAG_COLOURS[tags[0]] ?? 'var(--teal)'}`}>

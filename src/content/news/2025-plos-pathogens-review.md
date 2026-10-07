@@ -7,6 +7,7 @@ tags: [Papers]
 image: /images/science/rna-localisation-review-fig1-ppat-2025.png
 imageAlt: Figure 1 of the review on influenza A virus RNA localisation and host trafficking pathways
 imageCredit: 'Fig. 1 from Bonazza and Courtney, PLoS Pathogens (2025), CC BY 4.0'
+imageFit: contain
 ---
 
 Where a viral RNA is inside the cell decides what happens to it: whether it is translated, replicated, packaged or recognised by the immune system.

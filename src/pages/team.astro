@@ -17,7 +17,9 @@ const alumni = rendered.filter((r) => r.m.data.group === 'Alumni');
 function initials(name: string) {
   return name
     .replace(/^(Dr|Prof)\.?\s+/, '')
+    .replace(/\(.*?\)/g, '')
     .split(/\s+/)
+    .filter(Boolean)
     .map((p) => p[0])
     .slice(0, 2)
     .join('');

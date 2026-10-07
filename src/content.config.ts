@@ -25,6 +25,8 @@ const news = defineCollection({
     imageAlt: z.string().optional(),
     // Credit and licence shown under the photo, e.g. 'Bonazza et al., Nature Communications (2026), CC BY 4.0'.
     imageCredit: z.string().optional(),
+    // 'contain' shows the whole image (best for paper figures); 'cover' fills the card (best for photos).
+    imageFit: z.enum(['cover', 'contain']).default('cover'),
     draft: z.boolean().default(false),
   }),
 });
