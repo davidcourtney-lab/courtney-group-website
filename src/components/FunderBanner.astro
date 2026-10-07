@@ -15,7 +15,12 @@ const { heading = 'Our research has been funded by' } = Astro.props;
         funders.map((f) => (
           <li>
             <a href={f.href} rel="noopener" title={f.name}>
-              {f.logo ? (
+              {f.logo && f.withName ? (
+                <span class="with-name">
+                  <img class="flag" src={f.logo} alt="" loading="lazy" />
+                  <span class="name">{f.name}</span>
+                </span>
+              ) : f.logo ? (
                 <img src={f.logo} alt={f.name} loading="lazy" />
               ) : (
                 <>
@@ -104,14 +109,42 @@ const { heading = 'Our research has been funded by' } = Astro.props;
     margin-top: 4px;
   }
   img {
-    height: 44px;
-    width: auto;
-    max-width: 100%;
+    height: 52px;
+    width: 100%;
+    max-width: 230px;
     object-fit: contain;
     object-position: left center;
   }
-  :global(:root[data-theme='dark']) img {
-    filter: brightness(0) invert(1);
-    opacity: 0.85;
+  .with-name {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    min-height: 52px;
+  }
+  .with-name .flag {
+    width: 54px;
+    height: 36px;
+    flex: none;
+  }
+  .with-name .name {
+    font-size: 1rem;
+    line-height: 1.2;
+  }
+  /* Logos are drawn for light backgrounds, so they sit on a white tile in dark mode. */
+  :global(:root[data-theme='dark']) img:not(.flag) {
+    background: #fff;
+    border-radius: 8px;
+    padding: 6px 10px;
+    box-sizing: content-box;
+    height: 40px;
+  }
+  @media (prefers-color-scheme: dark) {
+    :global(:root:not([data-theme='light'])) img:not(.flag) {
+      background: #fff;
+      border-radius: 8px;
+      padding: 6px 10px;
+      box-sizing: content-box;
+      height: 40px;
+    }
   }
 </style>

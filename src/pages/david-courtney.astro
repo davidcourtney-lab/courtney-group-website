@@ -4,7 +4,7 @@ import FunderBanner from '../components/FunderBanner.astro';
 import { SITE } from '../data/site';
 import { publications } from '../data/publications';
 import { citationStats, citationsFor, paperLink } from '../data/citations';
-import { headline, summary, positions, education, roles, grants, patents, memberships, expertise } from '../data/cv';
+import { headline, summary, positions, education, roles, grants, patents, memberships, expertise, mentoring, media, talks } from '../data/cv';
 
 // Papers to feature, matched on the start of the title.
 const featured = [
@@ -22,14 +22,15 @@ const stats = [
   author && { value: author.citations.toLocaleString('en-GB'), label: 'citations' },
   author?.hIndex && { value: String(author.hIndex), label: 'h-index' },
   { value: '€1.83M', label: 'in personal ERC and Marie Skłodowska-Curie funding' },
-  { value: '2', label: 'US patent applications in RNA and gene editing' },
+  { value: '3', label: 'US patent applications: antivirals, RNA and gene editing' },
 ].filter(Boolean) as { value: string; label: string }[];
 
 const highlights = [
   'UK Ambassador for the ERC',
   'ERC Starting Grant holder',
   'Marie Skłodowska-Curie Fellow',
-  'Churchill Fellow',
+  'BBSRC Panel of Experts',
+  'MSCA panel Vice-Chair',
 ];
 
 const links = [
@@ -83,16 +84,18 @@ const schema = {
         <p>
           David trained in Biomedical Sciences at Ulster University, including a year in GlaxoSmithKline’s BioPharm R&amp;D
           division, and stayed at Ulster for a PhD developing siRNA and CRISPR medicines for inherited eye disease. He then
-          moved into virology, first at Duke University and then at Institut Pasteur in Paris as a Marie Skłodowska-Curie
-          Fellow, where he helped show how chemical modifications on viral RNA control how well viruses such as influenza
+          moved into virology as a Marie Skłodowska-Curie Fellow, first at Duke University and then at Institut Pasteur
+          in Paris, where he helped show how chemical modifications on viral RNA control how well viruses such as influenza
           and HIV-1 replicate.
         </p>
         <p>
-          He returned to Belfast in 2020, worked on antiviral drug repurposing during the COVID-19 pandemic, and founded
+          He returned to Belfast in 2020, worked on antiviral drug repurposing during the COVID-19 pandemic, became a
+          regular expert voice on BBC television and radio, and founded
           The Courtney Group in 2021 with a €1.57M ERC Starting Grant. He was promoted to Senior Lecturer in 2025, the
           same year the group’s first PhD students graduated. In April 2025 he was appointed the United Kingdom’s
           Ambassador for the European Research Council, one of 32 researchers making the case for investment in
-          frontier science.
+          frontier science. He sits on the BBSRC Panel of Experts and is Vice-Chair of a Marie Skłodowska-Curie Actions
+          fellowship panel.
         </p>
         <p>
           David is a STEM NI Ambassador and a Fellow of the Winston Churchill Memorial Trust, and regularly hosts school
@@ -231,12 +234,40 @@ const schema = {
     </div>
   </section>
 
+  <section class="section alt">
+    <div class="wrap columns">
+      <div>
+        <p class="eyebrow">People</p>
+        <h2>Mentoring and leadership</h2>
+        <ul class="ticks">{mentoring.map((m) => <li>{m}</li>)}</ul>
+      </div>
+      <div>
+        <p class="eyebrow">Out and about</p>
+        <h2>Talks and media</h2>
+        <ul class="ticks">{media.map((m) => <li>{m}</li>)}</ul>
+        <ul class="entries">
+          {
+            talks.map((i) => (
+              <li>
+                <span class="when">{i.when}</span>
+                <div>
+                  <h3>{i.title}</h3>
+                  {i.where && <p class="where">{i.where}</p>}
+                </div>
+              </li>
+            ))
+          }
+        </ul>
+      </div>
+    </div>
+  </section>
+
   <section class="section cv-band">
     <div class="wrap cv-grid">
       <div class="prose">
         <p class="eyebrow">Curriculum vitae</p>
         <h2>Need David’s CV?</h2>
-        <p>A two-page CV with career history, funding, patents and selected publications, kept up to date with this site.</p>
+        <p>Career history, funding, service, patents and selected publications, kept up to date with this site.</p>
       </div>
       <div class="cta">
         <a class="btn" href="/david-courtney-cv.pdf" download="David-Courtney-CV.pdf">Download CV (PDF)</a>
@@ -475,6 +506,12 @@ const schema = {
     gap: 14px;
     padding-top: 16px;
     border-top: 1px solid var(--line);
+  }
+  .ticks {
+    margin: 4px 0 0;
+    padding-left: 1.1em;
+    display: grid;
+    gap: 8px;
   }
   .papers h3 a {
     color: var(--ink);

@@ -3,7 +3,7 @@
 import { SITE } from '../data/site';
 import { publications } from '../data/publications';
 import { citationStats, citationsFor } from '../data/citations';
-import { headline, summary, positions, education, roles, grants, patents, memberships, type CvItem } from '../data/cv';
+import { headline, summary, positions, education, roles, grants, patents, memberships, mentoring, media, talks, type CvItem } from '../data/cv';
 
 const selected = publications.filter((p) => p.lab || /^Courtney D/.test(p.authors)).slice(0, 10);
 const author = citationStats.author;
@@ -14,6 +14,7 @@ const blocks: { title: string; items: CvItem[] }[] = [
   { title: 'Leadership and service', items: roles },
   { title: 'Grants and awards', items: grants },
   { title: 'Patent applications', items: patents },
+  { title: 'Selected talks and events', items: talks },
 ];
 ---
 
@@ -75,6 +76,16 @@ const blocks: { title: string; items: CvItem[] }[] = [
           </section>
         ))
       }
+
+      <section>
+        <h2>Mentoring and leadership</h2>
+        <ul class="bullets">{mentoring.map((m) => <li>{m}</li>)}</ul>
+      </section>
+
+      <section>
+        <h2>Public engagement and media</h2>
+        <ul class="bullets">{media.map((m) => <li>{m}</li>)}</ul>
+      </section>
 
       <section>
         <h2>Professional memberships</h2>
@@ -227,6 +238,12 @@ const blocks: { title: string; items: CvItem[] }[] = [
   .when {
     color: var(--muted);
     font-variant-numeric: tabular-nums;
+  }
+  .bullets {
+    margin: 0;
+    padding-left: 1.2em;
+    display: grid;
+    gap: 2px;
   }
   .note {
     font-size: 8.5pt;
