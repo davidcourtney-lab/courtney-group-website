@@ -1,0 +1,123 @@
+---
+import Base from '../layouts/Base.astro';
+import NewsCard from '../components/NewsCard.astro';
+import { getNews } from '../lib/news';
+
+const posts = (await getNews()).filter((p) => p.data.tags.includes('Citizenship')).slice(0, 6);
+
+const work = [
+  {
+    stat: '21',
+    title: 'Students hosted in the lab',
+    text: 'As a STEM NI Ambassador, David has hosted 21 school and undergraduate students for summer studentships and work shadowing, with a focus on students from backgrounds under-represented in science.',
+  },
+  {
+    stat: 'RS',
+    title: 'Royal Society Partnership Grant',
+    text: 'Secondary school pupils work alongside the lab to test shop-bought plants for viruses, running real molecular experiments on samples they collect themselves.',
+  },
+  {
+    stat: 'Q&A',
+    title: 'Talking about viruses',
+    text: 'School visits, public talks and writing for The Conversation. When a new virus is in the news, we help people make sense of it.',
+  },
+];
+---
+
+<Base
+  title="Citizenship"
+  description="How The Courtney Group opens up science: school partnerships, summer studentships and public engagement in Northern Ireland."
+>
+  <section class="page-hero">
+    <div class="wrap">
+      <p class="eyebrow">Citizenship</p>
+      <h1>A lab that belongs to its community</h1>
+      <p class="lede">
+        Publicly funded science should give something back. We open our doors to young people, work with local schools and
+        stand up for curiosity-driven research.
+      </p>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="wrap work">
+      {
+        work.map((w) => (
+          <article>
+            <span class="stat">{w.stat}</span>
+            <h2>{w.title}</h2>
+            <p>{w.text}</p>
+          </article>
+        ))
+      }
+    </div>
+  </section>
+
+  <section class="section advocacy">
+    <div class="wrap prose">
+      <p class="eyebrow">Why it matters</p>
+      <h2>Standing up for blue-sky research</h2>
+      <p>
+        Many of the medicines and vaccines we rely on grew out of research that set out simply to understand how life works.
+        We believe that fundamental, curiosity-driven science deserves support, and we make that case in classrooms, in public
+        and in policy conversations.
+      </p>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="wrap">
+      <div class="section-head">
+        <p class="eyebrow">From the news page</p>
+        <h2>Out and about</h2>
+      </div>
+      {
+        posts.length ? (
+          <div class="grid">{posts.map((p) => <NewsCard post={p} />)}</div>
+        ) : (
+          <p class="empty">
+            Photos from our school visits and community events will appear here as they are posted to the <a href="/news/">News page</a> with the Citizenship tag.
+          </p>
+        )
+      }
+    </div>
+  </section>
+</Base>
+
+<style>
+  .work {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 32px;
+  }
+  .work article {
+    display: grid;
+    gap: 12px;
+    align-content: start;
+  }
+  .stat {
+    font-family: var(--font-display);
+    font-weight: 800;
+    font-size: var(--step-4);
+    line-height: 1;
+    color: var(--leaf);
+  }
+  .work h2 {
+    font-size: var(--step-1);
+  }
+  .work p {
+    color: var(--muted);
+  }
+  .advocacy {
+    background: color-mix(in srgb, var(--leaf) 9%, var(--bg));
+  }
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 22px;
+  }
+  .empty {
+    color: var(--muted);
+    max-width: 60ch;
+  }
+</style>

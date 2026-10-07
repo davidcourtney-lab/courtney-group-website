@@ -1,0 +1,127 @@
+---
+import { formatDate, tagSlug, TAG_COLOURS, type NewsPost } from '../lib/news';
+interface Props {
+  post: NewsPost;
+  feature?: boolean;
+}
+const { post, feature = false } = Astro.props;
+const { title, date, datePrecision, summary, tags, image, imageAlt } = post.data;
+---
+
+<article class:list={['card', { feature, 'no-image': !image }]} data-tags={tags.join('|')}>
+  {
+    image ? (
+      <a class="media" href={`/news/${post.id}/`} tabindex="-1" aria-hidden="true">
+        <img src={image} alt={imageAlt ?? ''} loading="lazy" />
+      </a>
+    ) : (
+      <a class="media glyph" href={`/news/${post.id}/`} tabindex="-1" aria-hidden="true" style={`--c:${TAG_COLOURS[tags[0]] ?? 'var(--teal)'}`}>
+        <span>{tags[0] ?? 'News'}</span>
+      </a>
+    )
+  }
+  <div class="body">
+    <p class="meta">
+      <time datetime={date.toISOString()}>{formatDate(date, datePrecision)}</time>
+    </p>
+    <h3><a href={`/news/${post.id}/`}>{title}</a></h3>
+    <p class="summary">{summary}</p>
+    <p class="tags">
+      {tags.map((t) => <a class="tag" href={`/news/tag/${tagSlug(t)}/`} style={`--c:${TAG_COLOURS[t]}`}>{t}</a>)}
+    </p>
+  </div>
+</article>
+
+<style>
+  .card {
+    display: grid;
+    grid-template-rows: auto 1fr;
+    background: var(--surface);
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    overflow: hidden;
+    min-width: 0;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+  }
+  .card:hover {
+    transform: translateY(-3px);
+    box-shadow: var(--shadow);
+  }
+  .media {
+    display: block;
+    aspect-ratio: 16 / 9;
+    overflow: hidden;
+    max-width: 100%;
+  }
+  .media img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+  .glyph {
+    display: grid;
+    place-items: end start;
+    padding: 18px;
+    text-decoration: none;
+    background:
+      radial-gradient(circle at 85% 20%, color-mix(in srgb, var(--c) 45%, transparent) 0 18%, transparent 19%),
+      radial-gradient(circle at 70% 70%, color-mix(in srgb, var(--c) 25%, transparent) 0 10%, transparent 11%),
+      repeating-linear-gradient(135deg, color-mix(in srgb, var(--c) 10%, var(--surface)) 0 2px, var(--surface) 2px 14px);
+  }
+  .glyph span {
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: var(--step-2);
+    color: var(--c);
+  }
+  .body {
+    display: grid;
+    gap: 10px;
+    padding: 20px 22px 22px;
+    align-content: start;
+  }
+  .meta {
+    font-family: var(--font-mono);
+    font-size: 0.78rem;
+    color: var(--muted);
+    letter-spacing: 0.04em;
+  }
+  h3 a {
+    color: var(--ink);
+    text-decoration: none;
+  }
+  h3 a:hover {
+    color: var(--teal);
+  }
+  .summary {
+    color: var(--muted);
+    font-size: 0.98rem;
+  }
+  .tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+  }
+  .tags .tag {
+    background: color-mix(in srgb, var(--c, var(--teal)) 16%, var(--surface));
+    border: 1px solid color-mix(in srgb, var(--c, var(--teal)) 35%, transparent);
+  }
+  @media (min-width: 860px) {
+    .feature {
+      grid-template-columns: 1.3fr 1fr;
+      grid-template-rows: auto;
+    }
+    .feature .media {
+      aspect-ratio: auto;
+      height: 100%;
+      min-height: 300px;
+    }
+    .feature h3 {
+      font-size: var(--step-2);
+    }
+    .feature .body {
+      padding: 32px;
+      align-content: center;
+    }
+  }
+</style>

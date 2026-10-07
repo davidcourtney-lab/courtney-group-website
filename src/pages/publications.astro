@@ -1,0 +1,122 @@
+---
+import Base from '../layouts/Base.astro';
+import { publications, pubLink } from '../data/publications';
+import { SITE } from '../data/site';
+
+const years = [...new Set(publications.map((p) => p.year))].sort((a, b) => b - a);
+const bold = (authors: string) => authors.replace(/(Courtney DG|Courtney D)(#|\*)?/g, '<strong>$1$2</strong>');
+---
+
+<Base title="Publications" description="Selected publications from David Courtney and The Courtney Group on influenza A virus, RNA modifications and RNA therapeutics.">
+  <section class="page-hero">
+    <div class="wrap">
+      <p class="eyebrow">Publications</p>
+      <h1>Selected papers</h1>
+      <p class="lede">
+        For a complete, always current list, see
+        {SITE.profiles.orcid && <a class="light" href={SITE.profiles.orcid}>ORCID</a>}
+        {SITE.profiles.pure && <> or <a class="light" href={SITE.profiles.pure}>Queen’s Pure</a></>}.
+      </p>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="wrap pubs">
+      <p class="legend"><span class="lab-dot"></span> From The Courtney Group at Queen’s · * co-first author · # co-senior author</p>
+      {
+        years.map((y) => (
+          <section class="year-block" aria-labelledby={`y${y}`}>
+            <h2 id={`y${y}`}>{y}</h2>
+            <ol>
+              {publications
+                .filter((p) => p.year === y)
+                .map((p) => (
+                  <li class:list={{ lab: p.lab }}>
+                    <a class="title" href={pubLink(p)}>{p.title}</a>
+                    <span class="authors" set:html={bold(p.authors)} />
+                    <span class="journal">{p.journal}</span>
+                  </li>
+                ))}
+            </ol>
+          </section>
+        ))
+      }
+    </div>
+  </section>
+</Base>
+
+<style>
+  .light {
+    color: #7fd3d6;
+  }
+  .pubs {
+    display: grid;
+    gap: 36px;
+  }
+  .legend {
+    font-size: var(--step--1);
+    color: var(--muted);
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    flex-wrap: wrap;
+  }
+  .lab-dot {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    background: var(--saffron);
+  }
+  .year-block {
+    display: grid;
+    grid-template-columns: 120px minmax(0, 1fr);
+    gap: 24px;
+    border-top: 1px solid var(--line);
+    padding-top: 24px;
+  }
+  @media (max-width: 640px) {
+    .year-block {
+      grid-template-columns: 1fr;
+      gap: 12px;
+    }
+  }
+  .year-block h2 {
+    font-size: var(--step-2);
+    color: var(--teal);
+    font-variant-numeric: tabular-nums;
+  }
+  ol {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: grid;
+    gap: 22px;
+  }
+  li {
+    display: grid;
+    gap: 4px;
+    padding-left: 18px;
+    border-left: 3px solid var(--line);
+  }
+  li.lab {
+    border-left-color: var(--saffron);
+  }
+  .title {
+    font-weight: 600;
+    font-size: 1.06rem;
+    color: var(--ink);
+    text-decoration: none;
+  }
+  .title:hover {
+    color: var(--teal);
+    text-decoration: underline;
+  }
+  .authors {
+    color: var(--muted);
+    font-size: 0.95rem;
+  }
+  .journal {
+    font-style: italic;
+    font-size: 0.95rem;
+  }
+</style>

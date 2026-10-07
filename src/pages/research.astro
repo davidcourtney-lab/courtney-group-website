@@ -1,0 +1,244 @@
+---
+import Base from '../layouts/Base.astro';
+import RnaCanvas from '../components/RnaCanvas.astro';
+import ReplicationCycle from '../components/ReplicationCycle.astro';
+import { scienceImages } from '../data/images';
+
+const toolkit = [
+  { name: 'Molecular cloning', detail: 'Reporter viruses and constructs built in house' },
+  { name: 'CRISPR/Cas9', detail: 'Knockout cell lines to test host factors' },
+  { name: 'siRNA', detail: 'Fast, targeted knockdown screens' },
+  { name: 'Next-generation sequencing', detail: 'Mapping viral and host RNA' },
+  { name: 'Mass spectrometry', detail: 'Finding the proteins bound to viral RNA' },
+  { name: 'Live and fixed imaging', detail: 'Following viral RNA through the cell' },
+];
+const micrographs = scienceImages.filter((i) => i.page === 'research');
+---
+
+<Base
+  title="Research"
+  description="The Courtney Group studies how influenza A virus RNA hijacks host proteins, and how that can lead to RNA therapeutics and equitable access to antivirals and vaccines."
+>
+  <section class="page-hero">
+    <RnaCanvas />
+    <div class="wrap">
+      <p class="eyebrow">Research</p>
+      <h1>Viral RNA is never alone in the cell</h1>
+      <p class="lede">
+        From the moment influenza A virus enters a cell, its RNA is bound, modified, moved and read by host proteins. We want to
+        know which of those partnerships the virus cannot live without.
+      </p>
+    </div>
+  </section>
+
+  <section class="section" id="fundamental">
+    <div class="wrap">
+      <div class="section-head">
+        <p class="eyebrow">01 · Fundamental molecular virology</p>
+        <h2>Following influenza RNA through the replication cycle</h2>
+        <p class="lede">
+          Influenza A virus has a genome of eight RNA segments. Every one of them has to be copied in the nucleus, exported,
+          translated and delivered to the cell surface before a new virus can bud. Each of those steps needs the host.
+        </p>
+      </div>
+      <ReplicationCycle />
+      <div class="pillars">
+        <article>
+          <h3>RNA modification</h3>
+          <p>
+            Chemical marks on viral RNA, such as m6A, can change how stable it is, how well it is translated and whether the
+            immune system notices it. David’s earlier work showed these marks enhance influenza gene expression.
+          </p>
+        </article>
+        <article>
+          <h3>Nuclear export</h3>
+          <p>
+            Influenza replicates in the nucleus, an unusual choice for an RNA virus. Its unspliced RNAs need host help to get
+            out to the cytoplasm, where the translation machinery waits.
+          </p>
+        </article>
+        <article>
+          <h3>Trafficking and packaging</h3>
+          <p>
+            New genome segments travel to the cell membrane in vesicles before they are bundled into new virus particles. We
+            have identified host proteins that ride along on that journey.
+          </p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  {
+    micrographs.length > 0 && (
+      <section class="section gallery-band">
+        <div class="wrap">
+          <div class="section-head">
+            <p class="eyebrow">Under the microscope</p>
+            <h2>What we are up against</h2>
+          </div>
+          <div class="micro-grid">
+            {micrographs.map((img) => (
+              <figure class="micro">
+                <img src={img.src} alt={img.alt} loading="lazy" />
+                <figcaption>
+                  {img.caption} <span class="credit">{img.credit}</span>
+                </figcaption>
+              </figure>
+            ))}
+          </div>
+        </div>
+      </section>
+    )
+  }
+
+  <section class="section" id="translational">
+    <div class="wrap split">
+      <div class="section-head">
+        <p class="eyebrow">02 · Translation to advanced RNA therapeutics</p>
+        <h2>Targets every influenza A virus shares</h2>
+      </div>
+      <div class="prose">
+        <p>
+          Influenza changes quickly, which is why vaccines are updated every year and antiviral resistance keeps appearing. The
+          host proteins the virus depends on change far more slowly.
+        </p>
+        <p>
+          If an interaction between a host protein and viral RNA turns out to be essential to all influenza A viruses, it
+          becomes a strong candidate for a new kind of antiviral. RNA medicines, from siRNAs to antisense oligonucleotides,
+          are well suited to hitting those targets.
+        </p>
+        <p>
+          David has worked on RNA therapeutics from the start: his PhD developed allele-specific siRNAs and CRISPR approaches
+          for inherited eye disease. We are bringing that experience back to infectious disease.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="access">
+    <div class="wrap split">
+      <div class="section-head">
+        <p class="eyebrow">03 · Equitable access</p>
+        <h2>Medicines that reach the people who need them</h2>
+      </div>
+      <div class="prose">
+        <p>
+          The burden of respiratory viruses falls hardest on communities with the least access to new treatments and
+          vaccines. A breakthrough that only reaches wealthy health systems is only half a breakthrough.
+        </p>
+        <p>
+          We want the therapeutics that grow out of our work to be designed with affordability, stability and manufacturing in
+          mind from the start, and we look for partners who share that aim.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <section class="section toolkit-band">
+    <div class="wrap">
+      <div class="section-head">
+        <p class="eyebrow">How we work</p>
+        <h2>A molecular toolkit</h2>
+      </div>
+      <ul class="toolkit">
+        {
+          toolkit.map((t) => (
+            <li>
+              <strong>{t.name}</strong>
+              <span>{t.detail}</span>
+            </li>
+          ))
+        }
+      </ul>
+      <p class="funding">
+        Our core programme is funded by a European Research Council Starting Grant. We also study other RNA viruses, including
+        HIV-1 and SARS-CoV-2, with collaborators.
+      </p>
+    </div>
+  </section>
+</Base>
+
+<style>
+  .pillars {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 28px;
+    margin-top: clamp(32px, 5vw, 56px);
+  }
+  .pillars article {
+    display: grid;
+    gap: 10px;
+    padding-top: 18px;
+    border-top: 3px solid var(--saffron);
+  }
+  .pillars p {
+    color: var(--muted);
+  }
+  .split {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1.3fr);
+    gap: clamp(24px, 5vw, 64px);
+  }
+  @media (max-width: 860px) {
+    .split {
+      grid-template-columns: 1fr;
+    }
+  }
+  #translational {
+    background: color-mix(in srgb, var(--saffron) 8%, var(--bg));
+  }
+  #access {
+    background: color-mix(in srgb, var(--leaf) 8%, var(--bg));
+  }
+  .micro-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 20px;
+  }
+  .micro {
+    margin: 0;
+    display: grid;
+    gap: 10px;
+  }
+  .micro img {
+    border-radius: var(--radius);
+    aspect-ratio: 1;
+    object-fit: cover;
+    width: 100%;
+    background: var(--masthead);
+  }
+  .micro figcaption {
+    font-size: var(--step--1);
+    color: var(--muted);
+  }
+  .credit {
+    display: block;
+    font-family: var(--font-mono);
+    font-size: 0.72rem;
+  }
+  .toolkit {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 300px), 1fr));
+    gap: 14px;
+  }
+  .toolkit li {
+    display: grid;
+    gap: 4px;
+    padding: 18px 20px;
+    border-radius: var(--radius);
+    background: var(--surface);
+    border: 1px solid var(--line);
+  }
+  .toolkit span {
+    color: var(--muted);
+    font-size: 0.96rem;
+  }
+  .funding {
+    margin-top: 28px;
+    color: var(--muted);
+    max-width: 70ch;
+  }
+</style>

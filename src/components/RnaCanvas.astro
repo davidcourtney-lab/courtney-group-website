@@ -1,0 +1,86 @@
+---
+// Ambient drifting RNA strands drawn on canvas, in the logo's colours.
+interface Props {
+  class?: string;
+}
+const { class: className = '' } = Astro.props;
+---
+
+<canvas class:list={['rna-canvas', className]} aria-hidden="true"></canvas>
+
+<script>
+  const palette = ['#2bb3b8', '#e9a52b', '#b07fd6', '#6dbe4b', '#e0848f'];
+
+  function start(canvas: HTMLCanvasElement) {
+    const ctx = canvas.getContext('2d');
+    if (!ctx) return;
+    const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    let w = 0;
+    let h = 0;
+    const strands = Array.from({ length: 9 }, (_, i) => ({
+      y: Math.random(),
+      amp: 6 + Math.random() * 16,
+      freq: 0.012 + Math.random() * 0.02,
+      speed: 0.15 + Math.random() * 0.35,
+      phase: Math.random() * Math.PI * 2,
+      color: palette[i % palette.length],
+      width: 1.2 + Math.random() * 1.6,
+      len: 0.35 + Math.random() * 0.45,
+      x: Math.random(),
+    }));
+
+    function resize() {
+      const dpr = Math.min(window.devicePixelRatio || 1, 2);
+      w = canvas.clientWidth;
+      h = canvas.clientHeight;
+      canvas.width = w * dpr;
+      canvas.height = h * dpr;
+      ctx!.setTransform(dpr, 0, 0, dpr, 0, 0);
+    }
+
+    function draw(t: number) {
+      ctx!.clearRect(0, 0, w, h);
+      for (const s of strands) {
+        const x0 = ((s.x + (t / 1000) * s.speed * 0.02) % 1.4) * w - 0.2 * w;
+        const span = s.len * w;
+        ctx!.beginPath();
+        for (let x = 0; x <= span; x += 4) {
+          const y = s.y * h + Math.sin(x * s.freq + s.phase + t / 1600) * s.amp;
+          if (x === 0) ctx!.moveTo(x0 + x, y);
+          else ctx!.lineTo(x0 + x, y);
+        }
+        ctx!.strokeStyle = s.color;
+        ctx!.globalAlpha = 0.35;
+        ctx!.lineWidth = s.width;
+        ctx!.lineCap = 'round';
+        ctx!.stroke();
+        // ribosome-like bead riding the strand
+        const bx = x0 + span * (((t / 9000) * s.speed + s.phase) % 1);
+        const by = s.y * h + Math.sin((bx - x0) * s.freq + s.phase + t / 1600) * s.amp;
+        ctx!.globalAlpha = 0.6;
+        ctx!.fillStyle = s.color;
+        ctx!.beginPath();
+        ctx!.arc(bx, by, s.width * 2.6, 0, Math.PI * 2);
+        ctx!.fill();
+      }
+      ctx!.globalAlpha = 1;
+      if (!reduce) requestAnimationFrame(draw);
+    }
+
+    resize();
+    window.addEventListener('resize', resize);
+    requestAnimationFrame(draw);
+  }
+
+  document.querySelectorAll<HTMLCanvasElement>('canvas.rna-canvas').forEach(start);
+</script>
+
+<style>
+  .rna-canvas {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+  }
+</style>

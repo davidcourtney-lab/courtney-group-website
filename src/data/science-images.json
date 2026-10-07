@@ -1,0 +1,32 @@
+[
+  {
+    "file": "influenza-h7n9-tem.png",
+    "source": "https://commons.wikimedia.org/wiki/Special:FilePath/Electron_micrograph_of_Influenza_A_H7N9.png?width=1200",
+    "sourcePage": "https://commons.wikimedia.org/wiki/File:Electron_micrograph_of_Influenza_A_H7N9.png",
+    "alt": "Transmission electron micrograph of influenza A H7N9 virus particles",
+    "caption": "Influenza A (H7N9) virus particles imaged by transmission electron microscopy.",
+    "credit": "CDC · Public domain",
+    "licence": "Public domain (work of the US Centers for Disease Control and Prevention)",
+    "page": "research"
+  },
+  {
+    "file": "influenza-h5n1-tem.jpg",
+    "source": "https://commons.wikimedia.org/wiki/Special:FilePath/Colorized_transmission_electron_micrograph_of_Avian_influenza_A_H5N1_viruses.jpg?width=1200",
+    "sourcePage": "https://commons.wikimedia.org/wiki/File:Colorized_transmission_electron_micrograph_of_Avian_influenza_A_H5N1_viruses.jpg",
+    "alt": "Colourised transmission electron micrograph of avian influenza A H5N1 virus particles",
+    "caption": "Avian influenza A (H5N1) viruses, colourised transmission electron micrograph.",
+    "credit": "CDC · Public domain",
+    "licence": "Public domain (work of the US Centers for Disease Control and Prevention)",
+    "page": "research"
+  },
+  {
+    "file": "influenza-h1n1-tem.jpg",
+    "source": "https://commons.wikimedia.org/wiki/Special:FilePath/CDC-11214-swine-flu.jpg?width=1200",
+    "sourcePage": "https://commons.wikimedia.org/wiki/File:CDC-11214-swine-flu.jpg",
+    "alt": "Transmission electron micrograph of 2009 H1N1 influenza virus particles",
+    "caption": "2009 H1N1 influenza virus particles, transmission electron micrograph.",
+    "credit": "C. S. Goldsmith and A. Balish, CDC · Public domain",
+    "licence": "Public domain (work of the US Centers for Disease Control and Prevention)",
+    "page": "research"
+  }
+]

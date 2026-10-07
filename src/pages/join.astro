@@ -1,0 +1,97 @@
+---
+import Base from '../layouts/Base.astro';
+import { SITE } from '../data/site';
+
+const roles = [
+  {
+    title: 'PhD students',
+    text: 'We welcome enquiries from motivated graduates in biology, biochemistry or related subjects. Funded projects are advertised through Queen’s, and we are happy to support applications for fellowships and studentships.',
+  },
+  {
+    title: 'Postdoctoral researchers',
+    text: 'If you want to work on RNA biology and virology, get in touch to discuss fellowship applications (for example Marie Skłodowska-Curie, Wellcome or BBSRC schemes) or advertised positions.',
+  },
+  {
+    title: 'Undergraduate and school placements',
+    text: 'Each summer we host a small number of students for studentships and work shadowing. We particularly encourage applications from students who do not see many scientists in their community.',
+  },
+];
+---
+
+<Base title="Join us" description="Opportunities in The Courtney Group at Queen’s University Belfast for PhD students, postdocs and summer students in molecular virology.">
+  <section class="page-hero">
+    <div class="wrap">
+      <p class="eyebrow">Join us</p>
+      <h1>Come and work on influenza RNA with us</h1>
+      <p class="lede">We are a friendly, collaborative group based in the Wellcome-Wolfson Institute for Experimental Medicine in Belfast.</p>
+    </div>
+  </section>
+  <section class="section">
+    <div class="wrap roles">
+      {
+        roles.map((r) => (
+          <article>
+            <h2>{r.title}</h2>
+            <p>{r.text}</p>
+          </article>
+        ))
+      }
+    </div>
+  </section>
+  <section class="section contact">
+    <div class="wrap contact-grid">
+      <div class="prose">
+        <p class="eyebrow">Get in touch</p>
+        <h2>Email David</h2>
+        <p>Send a short note about your interests and a CV. There is no need for a formal cover letter for a first enquiry.</p>
+        <p><a class="btn" href={`mailto:${SITE.email}`}>{SITE.email}</a></p>
+      </div>
+      <address>
+        {SITE.address.map((l) => <span>{l}</span>)}
+      </address>
+    </div>
+  </section>
+</Base>
+
+<style>
+  .roles {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 24px;
+  }
+  .roles article {
+    display: grid;
+    gap: 12px;
+    align-content: start;
+    padding: 28px;
+    border-radius: var(--radius);
+    background: var(--surface);
+    border: 1px solid var(--line);
+  }
+  .roles h2 {
+    font-size: var(--step-1);
+  }
+  .roles p {
+    color: var(--muted);
+  }
+  .contact {
+    background: var(--teal-soft);
+  }
+  .contact-grid {
+    display: grid;
+    grid-template-columns: minmax(0, 1.4fr) minmax(0, 1fr);
+    gap: 32px;
+    align-items: center;
+  }
+  @media (max-width: 760px) {
+    .contact-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+  address {
+    font-style: normal;
+    display: grid;
+    padding: 24px;
+    border-left: 4px solid var(--teal);
+  }
+</style>

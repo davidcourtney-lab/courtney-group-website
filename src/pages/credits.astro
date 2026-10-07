@@ -1,0 +1,61 @@
+---
+import Base from '../layouts/Base.astro';
+import { allScienceImages } from '../data/images';
+---
+
+<Base title="Image credits" description="Sources and licences for the images used on The Courtney Group website.">
+  <section class="page-hero">
+    <div class="wrap">
+      <p class="eyebrow">Image credits</p>
+      <h1>Where our images come from</h1>
+      <p class="lede">Photos of the lab are our own. Scientific images come from openly licensed collections. We never use AI-generated images.</p>
+    </div>
+  </section>
+  <section class="section">
+    <div class="wrap">
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>Image</th><th>Credit</th><th>Licence</th></tr></thead>
+          <tbody>
+            <tr><td>Lab and team photographs</td><td>The Courtney Group</td><td>All rights reserved</td></tr>
+            <tr><td>The Courtney Group logo</td><td>The Courtney Group</td><td>All rights reserved</td></tr>
+            {
+              allScienceImages.map((i) => (
+                <tr>
+                  <td><a href={i.sourcePage}>{i.caption}</a></td>
+                  <td>{i.credit.split(' · ')[0]}</td>
+                  <td>{i.licence}</td>
+                </tr>
+              ))
+            }
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+</Base>
+
+<style>
+  .table-wrap {
+    overflow-x: auto;
+  }
+  table {
+    border-collapse: collapse;
+    width: 100%;
+    min-width: 560px;
+  }
+  th,
+  td {
+    text-align: left;
+    padding: 12px 14px;
+    border-bottom: 1px solid var(--line);
+    vertical-align: top;
+  }
+  th {
+    font-family: var(--font-mono);
+    font-size: 0.78rem;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--muted);
+  }
+</style>

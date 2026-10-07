@@ -1,0 +1,96 @@
+# Pages CMS configuration: lets the lab add News posts and team members through a web form
+# at https://app.pagescms.org (sign in with GitHub). Changes are saved straight to this repository,
+# and Cloudflare Pages rebuilds the site automatically.
+media:
+  input: public/images/uploads
+  output: /images/uploads
+content:
+  - name: news
+    label: News
+    type: collection
+    path: src/content/news
+    filename: '{year}-{month}-{day}-{primary}.md'
+    view:
+      fields: [title, date, tags]
+      sort: [date]
+      default:
+        sort: date
+        order: desc
+    fields:
+      - name: title
+        label: Title
+        type: string
+        required: true
+      - name: date
+        label: Date
+        type: date
+        required: true
+      - name: summary
+        label: One-line summary (shown on cards and in LinkedIn previews)
+        type: text
+        required: true
+      - name: tags
+        label: Tags
+        type: select
+        list: true
+        options:
+          values: [Papers, Funding, Conferences, Citizenship, Graduations, Awards, Lab life]
+      - name: image
+        label: Main photo
+        type: image
+      - name: imageAlt
+        label: Describe the photo (for screen readers)
+        type: string
+      - name: draft
+        label: Save as draft (hidden from the site)
+        type: boolean
+        default: false
+      - name: body
+        label: Post
+        type: rich-text
+  - name: team
+    label: Team
+    type: collection
+    path: src/content/team
+    filename: '{primary}.md'
+    view:
+      fields: [name, role, group]
+    fields:
+      - name: name
+        label: Full name
+        type: string
+        required: true
+      - name: role
+        label: Role
+        type: string
+        required: true
+      - name: group
+        label: Group
+        type: select
+        required: true
+        options:
+          values: [Principal Investigator, Postdoctoral researchers, Research staff, PhD students, Students, Alumni]
+      - name: order
+        label: Sort order (lower comes first)
+        type: number
+        default: 100
+      - name: photo
+        label: Headshot (square works best)
+        type: image
+      - name: film
+        label: Favourite film
+        type: string
+      - name: filmYear
+        label: Film year
+        type: number
+      - name: links
+        label: Links
+        type: object
+        fields:
+          - { name: email, label: Email, type: string }
+          - { name: orcid, label: ORCID URL, type: string }
+          - { name: linkedin, label: LinkedIn URL, type: string }
+          - { name: scholar, label: Google Scholar URL, type: string }
+      - name: body
+        label: Short bio (2 to 3 sentences)
+        type: rich-text

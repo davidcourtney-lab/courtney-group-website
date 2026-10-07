@@ -1,0 +1,321 @@
+---
+import Base from '../layouts/Base.astro';
+import RnaCanvas from '../components/RnaCanvas.astro';
+import NewsCard from '../components/NewsCard.astro';
+import { getNews } from '../lib/news';
+
+const news = (await getNews()).slice(0, 3);
+
+const themes = [
+  {
+    key: 'Fundamental',
+    title: 'How influenza commandeers the cell',
+    text: 'Influenza A virus carries only a handful of genes. We study the host proteins its RNA recruits to be modified, exported, translated and carried to the cell surface.',
+    href: '/research/#fundamental',
+    colour: 'var(--teal)',
+  },
+  {
+    key: 'Translational',
+    title: 'From RNA biology to RNA medicines',
+    text: 'Interactions that every influenza A virus depends on are promising targets. We look for ways to turn them into advanced RNA-based therapeutics.',
+    href: '/research/#translational',
+    colour: 'var(--saffron)',
+  },
+  {
+    key: 'Equitable',
+    title: 'Treatments and vaccines for everyone',
+    text: 'New medicines matter only if people can get them. We think early about how future antivirals and vaccines can reach the communities that need them most.',
+    href: '/research/#access',
+    colour: 'var(--leaf)',
+  },
+];
+
+const facts = [
+  { value: '2021', label: 'Group founded at Queen’s University Belfast' },
+  { value: '€1.57M', label: 'ERC Starting Grant funding our core programme' },
+  { value: '21', label: 'school and undergraduate students hosted for placements' },
+  { value: '8', label: 'genome segments in every influenza A virus, each one an RNA' },
+];
+---
+
+<Base>
+  <section class="hero">
+    <RnaCanvas />
+    <div class="wrap hero-grid">
+      <div class="hero-copy">
+        <p class="eyebrow">The Courtney Group · Queen’s University Belfast</p>
+        <h1>How influenza hijacks the cell, one RNA at a time.</h1>
+        <p class="lede">
+          Led by Dr David Courtney, we are a molecular virology lab working on the host machinery that influenza A virus RNA
+          relies on, and on how that knowledge can lead to new RNA therapeutics.
+        </p>
+        <div class="cta">
+          <a class="btn primary" href="/research/">Explore our research</a>
+          <a class="btn ghost-light" href="/join/">Join the lab</a>
+        </div>
+      </div>
+      <figure class="hero-photo">
+        <img src="/images/lab1.jpg" alt="Members of The Courtney Group outside the Wellcome-Wolfson Institute for Experimental Medicine in Belfast" width="1800" height="1350" />
+        <figcaption>The team at the Wellcome-Wolfson Institute for Experimental Medicine</figcaption>
+      </figure>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="wrap">
+      <div class="section-head">
+        <p class="eyebrow">What we work on</p>
+        <h2>Fundamental virology with an eye on the clinic</h2>
+      </div>
+      <div class="themes">
+        {
+          themes.map((t) => (
+            <a class="theme" href={t.href} style={`--c:${t.colour}`}>
+              <span class="theme-key">{t.key}</span>
+              <h3>{t.title}</h3>
+              <p>{t.text}</p>
+              <span class="more" aria-hidden="true">Read more →</span>
+            </a>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  <section class="section facts-band">
+    <div class="wrap facts">
+      {
+        facts.map((f) => (
+          <div class="fact">
+            <span class="fact-value">{f.value}</span>
+            <span class="fact-label">{f.label}</span>
+          </div>
+        ))
+      }
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="wrap">
+      <div class="section-head row">
+        <div>
+          <p class="eyebrow">Latest news</p>
+          <h2>From the lab</h2>
+        </div>
+        <a class="btn ghost" href="/news/">All news</a>
+      </div>
+      <div class="news-grid">
+        {news.map((post) => <NewsCard post={post} />)}
+      </div>
+    </div>
+  </section>
+
+  <section class="section pi">
+    <div class="wrap pi-grid">
+      <img class="pi-photo" src="/images/david.jpg" alt="Dr David Courtney" width="1400" height="933" loading="lazy" />
+      <div class="prose">
+        <p class="eyebrow">Principal Investigator</p>
+        <h2>Dr David Courtney</h2>
+        <p>
+          David is a Lecturer and ERC Research Fellow in Molecular Virology at Queen’s University Belfast. He trained in
+          molecular biology at Ulster University, then worked on viral RNA modifications at Duke University and Institut
+          Pasteur as a Marie Skłodowska-Curie Fellow before founding The Courtney Group in 2021.
+        </p>
+        <p>
+          His work has appeared in <em>Cell Host &amp; Microbe</em>, <em>Nature Communications</em>, <em>Nucleic Acids
+          Research</em> and <em>PLoS Pathogens</em>.
+        </p>
+        <p><a href="/team/">Meet the team</a> · <a href="/publications/">Publications</a></p>
+      </div>
+    </div>
+  </section>
+
+  <section class="section community">
+    <div class="wrap community-grid">
+      <div class="prose">
+        <p class="eyebrow">Citizenship</p>
+        <h2>Science belongs to everyone</h2>
+        <p>
+          We open the lab to school pupils and undergraduates from all backgrounds, run projects with local schools, and talk
+          about viruses wherever people want to listen.
+        </p>
+        <p><a class="btn" href="/citizenship/">Our work in the community</a></p>
+      </div>
+      <img src="/images/lab2.jpg" alt="Members of The Courtney Group standing together on a city street" loading="lazy" width="1800" height="1013" />
+    </div>
+  </section>
+</Base>
+
+<style>
+  .hero {
+    position: relative;
+    overflow: hidden;
+    background: var(--masthead);
+    color: var(--masthead-ink);
+    padding-block: clamp(48px, 8vw, 104px);
+  }
+  .hero-grid {
+    position: relative;
+    z-index: 1;
+    display: grid;
+    grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr);
+    gap: clamp(28px, 5vw, 64px);
+    align-items: center;
+  }
+  @media (max-width: 900px) {
+    .hero-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+  .hero-copy {
+    display: grid;
+    gap: 22px;
+  }
+  .hero .eyebrow {
+    color: #e9a52b;
+  }
+  .hero h1 {
+    font-size: var(--step-4);
+    max-width: 14ch;
+  }
+  .hero .lede {
+    color: color-mix(in srgb, var(--masthead-ink) 80%, transparent);
+  }
+  .cta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+  }
+  .btn.primary {
+    background: #e9a52b;
+    border-color: #e9a52b;
+    color: #0f2433;
+  }
+  .btn.ghost-light {
+    background: transparent;
+    border-color: rgb(255 255 255 / 40%);
+    color: var(--masthead-ink);
+  }
+  .hero-photo {
+    margin: 0;
+    display: grid;
+    gap: 10px;
+  }
+  .hero-photo img {
+    border-radius: 22px;
+    aspect-ratio: 4 / 3;
+    object-fit: cover;
+    box-shadow: 0 30px 60px rgb(0 0 0 / 35%);
+    border: 6px solid rgb(255 255 255 / 8%);
+  }
+  .hero-photo figcaption {
+    font-family: var(--font-mono);
+    font-size: 0.74rem;
+    letter-spacing: 0.05em;
+    opacity: 0.7;
+  }
+  .themes {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 20px;
+  }
+  .theme {
+    display: grid;
+    gap: 12px;
+    align-content: start;
+    padding: 28px;
+    border-radius: var(--radius);
+    background: var(--surface);
+    border: 1px solid var(--line);
+    border-top: 5px solid var(--c);
+    color: var(--ink);
+    text-decoration: none;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+  }
+  .theme:hover {
+    transform: translateY(-3px);
+    box-shadow: var(--shadow);
+  }
+  .theme-key {
+    font-family: var(--font-mono);
+    font-size: 0.76rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--c);
+    font-weight: 500;
+    filter: saturate(1.2);
+  }
+  .theme p {
+    color: var(--muted);
+  }
+  .more {
+    font-weight: 600;
+    color: var(--teal);
+  }
+  .facts-band {
+    background: var(--teal-soft);
+  }
+  .facts {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: 28px;
+  }
+  .fact {
+    display: grid;
+    gap: 6px;
+  }
+  .fact-value {
+    font-family: var(--font-display);
+    font-weight: 800;
+    font-size: var(--step-4);
+    line-height: 1;
+    color: var(--ink);
+    font-variant-numeric: tabular-nums;
+  }
+  .fact-label {
+    color: var(--muted);
+    max-width: 24ch;
+  }
+  .section-head.row {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: end;
+    gap: 16px;
+  }
+  .section-head.row > div {
+    display: grid;
+    gap: 12px;
+  }
+  .news-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 22px;
+  }
+  .pi-grid,
+  .community-grid {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1.1fr);
+    gap: clamp(28px, 5vw, 64px);
+    align-items: center;
+  }
+  .community-grid {
+    grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr);
+  }
+  @media (max-width: 860px) {
+    .pi-grid,
+    .community-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+  .pi-photo,
+  .community-grid img {
+    border-radius: 22px;
+    aspect-ratio: 3 / 2;
+    object-fit: cover;
+    width: 100%;
+  }
+  .community {
+    background: color-mix(in srgb, var(--leaf) 9%, var(--bg));
+  }
+</style>

@@ -1,0 +1,249 @@
+---
+// Hand-drawn schematic of the influenza A virus replication cycle.
+// Steps the group focuses on are highlighted in saffron.
+const steps = [
+  { n: 1, x: 120, y: 120, label: 'Entry and uncoating' },
+  { n: 2, x: 300, y: 250, label: 'vRNPs enter the nucleus' },
+  { n: 3, x: 455, y: 330, label: 'Transcription, replication and RNA modification', focus: true },
+  { n: 4, x: 610, y: 250, label: 'Export of viral RNA', focus: true },
+  { n: 5, x: 650, y: 410, label: 'Translation by host ribosomes' },
+  { n: 6, x: 730, y: 160, label: 'Trafficking to the membrane', focus: true },
+  { n: 7, x: 820, y: 70, label: 'Assembly and budding' },
+];
+---
+
+<figure class="cycle">
+  <svg viewBox="0 0 960 540" role="img" aria-labelledby="cycle-title cycle-desc">
+    <title id="cycle-title">The influenza A virus replication cycle</title>
+    <desc id="cycle-desc">
+      A virus particle enters a cell, its genome segments travel into the nucleus where they are copied and modified, viral RNA is
+      exported to the cytoplasm for translation, and new genome segments are trafficked to the cell membrane where new virus
+      particles bud.
+    </desc>
+    <defs>
+      <marker id="arrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+        <path d="M0 0 10 5 0 10z" class="f-muted"></path>
+      </marker>
+      <g id="vrnp">
+        <path d="M0 0 c6 -8 12 8 18 0 s12 8 18 0" class="s-rna" fill="none" stroke-width="3" stroke-linecap="round"></path>
+      </g>
+      <g id="virion">
+        <circle r="30" class="f-surface s-maroon" stroke-width="5"></circle>
+        {
+          Array.from({ length: 14 }, (_, i) => {
+            const a = (i / 14) * Math.PI * 2;
+            return (
+              <line
+                x1={Math.cos(a) * 32}
+                y1={Math.sin(a) * 32}
+                x2={Math.cos(a) * 44}
+                y2={Math.sin(a) * 44}
+                class="s-teal"
+                stroke-width="4"
+                stroke-linecap="round"
+              />
+            );
+          })
+        }
+        <use href="#vrnp" x="-18" y="-8"></use>
+        <use href="#vrnp" x="-18" y="6"></use>
+      </g>
+    </defs>
+
+    <!-- cell -->
+    <rect x="40" y="40" width="880" height="460" rx="120" class="f-cell s-line" stroke-width="3"></rect>
+    <!-- nucleus -->
+    <ellipse cx="420" cy="320" rx="210" ry="130" class="f-nucleus s-violet" stroke-width="3" stroke-dasharray="2 7" stroke-linecap="round"></ellipse>
+    <text x="420" y="430" class="lbl muted" text-anchor="middle">Nucleus</text>
+    <text x="90" y="470" class="lbl muted">Cytoplasm</text>
+
+    <!-- incoming virion -->
+    <use href="#virion" x="110" y="66"></use>
+    <!-- endosome -->
+    <circle cx="190" cy="180" r="34" class="f-none s-muted" stroke-width="2"></circle>
+    <use href="#vrnp" x="172" y="178"></use>
+
+    <!-- flow arrows -->
+    <path d="M205 210 Q250 250 280 270" class="s-muted" fill="none" stroke-width="2" marker-end="url(#arrow)"></path>
+    <use href="#vrnp" x="330" y="300"></use>
+    <use href="#vrnp" x="360" y="330"></use>
+    <use href="#vrnp" x="400" y="290"></use>
+    <circle cx="418" cy="290" r="5" class="f-saffron"></circle>
+    <circle cx="378" cy="330" r="5" class="f-saffron"></circle>
+    <path d="M520 290 Q570 250 600 215" class="s-saffron" fill="none" stroke-width="3" marker-end="url(#arrow)"></path>
+    <path d="M560 360 Q620 390 640 395" class="s-muted" fill="none" stroke-width="2" marker-end="url(#arrow)"></path>
+
+    <!-- ribosomes -->
+    <g class="f-leaf">
+      <ellipse cx="690" cy="430" rx="11" ry="8"></ellipse>
+      <ellipse cx="720" cy="440" rx="11" ry="8"></ellipse>
+      <ellipse cx="750" cy="432" rx="11" ry="8"></ellipse>
+    </g>
+    <path d="M675 440 c12 10 30 -6 45 4 s30 -6 45 -2" class="s-rna" fill="none" stroke-width="3"></path>
+
+    <!-- trafficking vesicles -->
+    <circle cx="660" cy="190" r="18" class="f-none s-saffron" stroke-width="3"></circle>
+    <circle cx="730" cy="130" r="18" class="f-none s-saffron" stroke-width="3"></circle>
+    <use href="#vrnp" x="645" y="190"></use>
+    <use href="#vrnp" x="715" y="130"></use>
+    <path d="M675 175 Q700 150 712 140" class="s-saffron" fill="none" stroke-width="3" marker-end="url(#arrow)"></path>
+    <path d="M748 115 Q780 90 800 80" class="s-saffron" fill="none" stroke-width="3" marker-end="url(#arrow)"></path>
+
+    <!-- budding virion -->
+    <use href="#virion" x="850" y="66"></use>
+
+    <!-- step badges -->
+    {
+      steps.map((s) => (
+        <g class:list={['badge', { focus: s.focus }]} transform={`translate(${s.x} ${s.y})`}>
+          <circle r="15"></circle>
+          <text text-anchor="middle" dy="5">
+            {s.n}
+          </text>
+        </g>
+      ))
+    }
+  </svg>
+  <figcaption>
+    <ol class="steps">
+      {
+        steps.map((s) => (
+          <li class:list={{ focus: s.focus }}>
+            <span class="n">{s.n}</span>
+            {s.label}
+          </li>
+        ))
+      }
+    </ol>
+    <p class="note"><span class="dot"></span> Highlighted steps are where most of our work sits.</p>
+  </figcaption>
+</figure>
+
+<style>
+  .cycle {
+    margin: 0;
+    display: grid;
+    grid-template-columns: minmax(0, 2fr) minmax(0, 1fr);
+    gap: 28px;
+    align-items: center;
+  }
+  @media (max-width: 860px) {
+    .cycle {
+      grid-template-columns: 1fr;
+    }
+  }
+  svg {
+    width: 100%;
+    height: auto;
+    max-width: 100%;
+  }
+  .f-cell {
+    fill: color-mix(in srgb, var(--teal) 6%, var(--surface));
+  }
+  .f-nucleus {
+    fill: color-mix(in srgb, var(--violet) 8%, var(--surface));
+  }
+  .f-surface {
+    fill: var(--surface);
+  }
+  .f-none {
+    fill: none;
+  }
+  .f-saffron {
+    fill: var(--saffron);
+  }
+  .f-leaf {
+    fill: var(--leaf);
+  }
+  .f-muted {
+    fill: var(--muted);
+  }
+  .s-line {
+    stroke: var(--line);
+  }
+  .s-violet {
+    stroke: var(--violet);
+  }
+  .s-maroon {
+    stroke: var(--maroon);
+  }
+  .s-teal {
+    stroke: var(--teal);
+  }
+  .s-muted {
+    stroke: var(--muted);
+  }
+  .s-saffron {
+    stroke: var(--saffron);
+  }
+  .s-rna {
+    stroke: var(--ink);
+  }
+  .lbl {
+    font-family: var(--font-mono);
+    font-size: 15px;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+  }
+  .muted {
+    fill: var(--muted);
+  }
+  .badge circle {
+    fill: var(--ink);
+  }
+  .badge text {
+    fill: var(--bg);
+    font: 700 15px var(--font-body);
+  }
+  .badge.focus circle {
+    fill: var(--saffron);
+  }
+  .badge.focus text {
+    fill: #0f2433;
+  }
+  .steps {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: grid;
+    gap: 10px;
+  }
+  .steps li {
+    display: grid;
+    grid-template-columns: 30px 1fr;
+    gap: 10px;
+    align-items: baseline;
+  }
+  .n {
+    display: inline-grid;
+    place-items: center;
+    width: 26px;
+    height: 26px;
+    border-radius: 50%;
+    background: var(--ink);
+    color: var(--bg);
+    font-weight: 700;
+    font-size: 0.85rem;
+  }
+  .focus .n {
+    background: var(--saffron);
+    color: #0f2433;
+  }
+  .focus {
+    font-weight: 600;
+  }
+  .note {
+    margin-top: 16px;
+    font-size: var(--step--1);
+    color: var(--muted);
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .dot {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    background: var(--saffron);
+  }
+</style>

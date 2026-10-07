@@ -1,0 +1,265 @@
+---
+import { getCollection, render } from 'astro:content';
+import Base from '../layouts/Base.astro';
+
+const GROUP_ORDER = ['Principal Investigator', 'Postdoctoral researchers', 'Research staff', 'PhD students', 'Students', 'Alumni'] as const;
+
+const members = (await getCollection('team')).sort((a, b) => a.data.order - b.data.order || a.data.name.localeCompare(b.data.name));
+const rendered = await Promise.all(members.map(async (m) => ({ m, Content: (await render(m)).Content })));
+const groups = GROUP_ORDER.map((g) => ({ name: g, people: rendered.filter((r) => r.m.data.group === g) })).filter((g) => g.people.length);
+
+function initials(name: string) {
+  return name
+    .replace(/^(Dr|Prof)\.?\s+/, '')
+    .split(/\s+/)
+    .map((p) => p[0])
+    .slice(0, 2)
+    .join('');
+}
+---
+
+<Base title="Team" description="Meet The Courtney Group at Queen’s University Belfast: the people studying influenza RNA biology, and their favourite films.">
+  <section class="page-hero">
+    <div class="wrap">
+      <p class="eyebrow">Team</p>
+      <h1>The people behind the pipettes</h1>
+      <p class="lede">Each of us brings something different to the bench. Hover or tap a card to see the film we would watch on a Friday night.</p>
+    </div>
+  </section>
+
+  {
+    groups.map((g) => (
+      <section class="section">
+        <div class="wrap">
+          <h2 class="group-title">{g.name}</h2>
+          <div class:list={['people', { solo: g.name === 'Principal Investigator' }]}>
+            {g.people.map(({ m, Content }) => (
+              <article class="person">
+                <button class="flip" type="button" aria-label={`Show ${m.data.name}'s favourite film`} aria-pressed="false">
+                  <span class="face front">
+                    {m.data.photo ? (
+                      <img src={m.data.photo} alt={m.data.name} loading="lazy" width="700" height="700" />
+                    ) : (
+                      <span class="initials">{initials(m.data.name)}</span>
+                    )}
+                  </span>
+                  <span class="face back">
+                    <span class="ticket-label">Favourite film</span>
+                    <span class="film">{m.data.film ?? 'To be added'}</span>
+                    {m.data.filmYear && <span class="year">{m.data.filmYear}</span>}
+                    <span class="perf" aria-hidden="true" />
+                  </span>
+                </button>
+                <div class="info">
+                  <h3>{m.data.name}</h3>
+                  <p class="role">{m.data.role}</p>
+                  <div class="bio">
+                    <Content />
+                  </div>
+                  <p class="film-inline">
+                    <span>Favourite film</span> {m.data.film ?? 'To be added'}
+                  </p>
+                  <p class="links">
+                    {m.data.links.email && <a href={`mailto:${m.data.links.email}`}>Email</a>}
+                    {m.data.links.orcid && <a href={m.data.links.orcid}>ORCID</a>}
+                    {m.data.links.linkedin && <a href={m.data.links.linkedin}>LinkedIn</a>}
+                    {m.data.links.scholar && <a href={m.data.links.scholar}>Google Scholar</a>}
+                  </p>
+                </div>
+              </article>
+            ))}
+          </div>
+        </div>
+      </section>
+    ))
+  }
+
+  <section class="section">
+    <div class="wrap">
+      <div class="section-head">
+        <p class="eyebrow">Through the years</p>
+        <h2>The lab, then and now</h2>
+      </div>
+      <div class="timeline">
+        <figure>
+          <img src="/images/lab1-sm.jpg" alt="The Courtney Group outside the Wellcome-Wolfson Institute for Experimental Medicine" loading="lazy" width="900" height="675" />
+          <figcaption><span>Then</span> Outside the Wellcome-Wolfson Institute</figcaption>
+        </figure>
+        <figure>
+          <img src="/images/lab2-sm.jpg" alt="The Courtney Group together on a city street" loading="lazy" width="900" height="506" />
+          <figcaption><span>Later</span> A bigger group, a few years on</figcaption>
+        </figure>
+      </div>
+      <p class="join-note">Want to be in the next photo? <a href="/join/">See current opportunities</a>.</p>
+    </div>
+  </section>
+</Base>
+
+<script>
+  document.querySelectorAll<HTMLButtonElement>('.flip').forEach((b) =>
+    b.addEventListener('click', () => b.setAttribute('aria-pressed', String(b.getAttribute('aria-pressed') !== 'true'))),
+  );
+</script>
+
+<style>
+  .group-title {
+    font-size: var(--step-2);
+    margin-bottom: 28px;
+  }
+  .people {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    gap: 28px;
+  }
+  .people.solo {
+    grid-template-columns: 1fr;
+  }
+  .person {
+    display: grid;
+    gap: 16px;
+    align-content: start;
+    min-width: 0;
+  }
+  .solo .person {
+    grid-template-columns: minmax(0, 340px) minmax(0, 1fr);
+    gap: clamp(20px, 4vw, 48px);
+    align-items: start;
+  }
+  @media (max-width: 720px) {
+    .solo .person {
+      grid-template-columns: 1fr;
+    }
+  }
+  .flip {
+    all: unset;
+    cursor: pointer;
+    display: grid;
+    aspect-ratio: 1;
+    max-width: 100%;
+    perspective: 1000px;
+    border-radius: 20px;
+  }
+  .flip:focus-visible {
+    outline: 3px solid var(--saffron);
+    outline-offset: 3px;
+  }
+  .face {
+    grid-area: 1 / 1;
+    border-radius: 20px;
+    overflow: hidden;
+    backface-visibility: hidden;
+    transition: transform 0.6s cubic-bezier(0.2, 0.7, 0.2, 1);
+  }
+  .front img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+  .initials {
+    display: grid;
+    place-items: center;
+    height: 100%;
+    background: var(--teal-soft);
+    font-family: var(--font-display);
+    font-size: var(--step-4);
+    font-weight: 800;
+    color: var(--teal);
+  }
+  .back {
+    transform: rotateY(180deg);
+    background: #0f2433;
+    color: #f5efe0;
+    display: grid;
+    align-content: center;
+    justify-items: center;
+    text-align: center;
+    gap: 10px;
+    padding: 28px;
+    position: relative;
+    border: 2px dashed #e9a52b;
+  }
+  .ticket-label {
+    font-family: var(--font-mono);
+    font-size: 0.74rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: #e9a52b;
+  }
+  .film {
+    font-family: var(--font-display);
+    font-size: var(--step-2);
+    font-weight: 700;
+    line-height: 1.1;
+  }
+  .year {
+    font-family: var(--font-mono);
+    opacity: 0.7;
+  }
+  .flip:hover .front,
+  .flip[aria-pressed='true'] .front {
+    transform: rotateY(-180deg);
+  }
+  .flip:hover .back,
+  .flip[aria-pressed='true'] .back {
+    transform: rotateY(0deg);
+  }
+  .info {
+    display: grid;
+    gap: 8px;
+    min-width: 0;
+  }
+  .role {
+    color: var(--teal);
+    font-weight: 600;
+  }
+  .bio {
+    color: var(--muted);
+    max-width: 68ch;
+  }
+  .film-inline {
+    font-size: 0.95rem;
+  }
+  .film-inline span {
+    font-family: var(--font-mono);
+    font-size: 0.72rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--maroon);
+    margin-right: 6px;
+  }
+  .links {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 14px;
+  }
+  .timeline {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 24px;
+  }
+  .timeline figure {
+    margin: 0;
+    display: grid;
+    gap: 10px;
+  }
+  .timeline img {
+    border-radius: 18px;
+    aspect-ratio: 16 / 10;
+    object-fit: cover;
+    width: 100%;
+  }
+  .timeline figcaption {
+    color: var(--muted);
+  }
+  .timeline figcaption span {
+    font-family: var(--font-mono);
+    font-size: 0.74rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--teal);
+    margin-right: 8px;
+  }
+  .join-note {
+    margin-top: 24px;
+  }
+</style>

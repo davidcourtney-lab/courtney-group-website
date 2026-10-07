@@ -1,0 +1,390 @@
+---
+import '../styles/global.css';
+import { SITE, NAV, VRNA_5, VRNA_3 } from '../data/site';
+
+interface Props {
+  title?: string;
+  description?: string;
+  image?: string;
+  type?: 'website' | 'article';
+  published?: Date;
+}
+
+const { title, description = SITE.description, image = '/images/og-default.jpg', type = 'website', published } = Astro.props;
+
+const fullTitle = title ? `${title} | ${SITE.name}, Queen’s University Belfast` : `${SITE.name} | David Courtney Lab, Molecular Virology at Queen’s University Belfast`;
+const canonical = new URL(Astro.url.pathname, SITE.url).href;
+const ogImage = new URL(image, SITE.url).href;
+const path = Astro.url.pathname;
+
+const sameAs = Object.values(SITE.profiles).filter(Boolean);
+const jsonLd = [
+  {
+    '@context': 'https://schema.org',
+    '@type': 'Person',
+    '@id': `${SITE.url}/#david-courtney`,
+    name: 'David Courtney',
+    alternateName: ['David G Courtney', 'Dr David Courtney', 'David G. Courtney'],
+    jobTitle: 'Lecturer and ERC Research Fellow in Molecular Virology',
+    worksFor: { '@type': 'CollegeOrUniversity', name: 'Queen’s University Belfast', url: 'https://www.qub.ac.uk' },
+    alumniOf: [
+      { '@type': 'CollegeOrUniversity', name: 'Ulster University' },
+      { '@type': 'CollegeOrUniversity', name: 'Duke University' },
+      { '@type': 'ResearchOrganization', name: 'Institut Pasteur' },
+    ],
+    knowsAbout: ['Molecular virology', 'Influenza A virus', 'RNA biology', 'Epitranscriptomics', 'RNA modifications', 'RNA therapeutics', 'Host-pathogen interactions'],
+    email: `mailto:${SITE.email}`,
+    url: SITE.url,
+    image: `${SITE.url}/images/david-square.jpg`,
+    sameAs,
+  },
+  {
+    '@context': 'https://schema.org',
+    '@type': 'ResearchOrganization',
+    '@id': `${SITE.url}/#group`,
+    name: SITE.name,
+    alternateName: ['Courtney Lab', 'Courtney Group QUB', 'David Courtney Lab'],
+    url: SITE.url,
+    logo: `${SITE.url}/images/logo-512.png`,
+    description: SITE.description,
+    founder: { '@id': `${SITE.url}/#david-courtney` },
+    parentOrganization: { '@type': 'CollegeOrUniversity', name: 'Queen’s University Belfast' },
+    address: {
+      '@type': 'PostalAddress',
+      streetAddress: '97 Lisburn Road',
+      addressLocality: 'Belfast',
+      postalCode: 'BT9 7BL',
+      addressCountry: 'GB',
+    },
+  },
+];
+---
+
+<!doctype html>
+<html lang="en-GB">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <title>{fullTitle}</title>
+    <meta name="description" content={description} />
+    <link rel="canonical" href={canonical} />
+    <meta name="author" content="David Courtney" />
+    <meta name="theme-color" content="#0f2433" />
+    <link rel="icon" type="image/png" href="/favicon.png" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+    <link rel="alternate" type="application/rss+xml" title={`${SITE.name} news`} href="/rss.xml" />
+    <link rel="sitemap" href="/sitemap-index.xml" />
+
+    <meta property="og:site_name" content={SITE.name} />
+    <meta property="og:type" content={type} />
+    <meta property="og:title" content={title ?? SITE.name} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonical} />
+    <meta property="og:image" content={ogImage} />
+    <meta property="og:locale" content="en_GB" />
+    {published && <meta property="article:published_time" content={published.toISOString()} />}
+    <meta name="twitter:card" content="summary_large_image" />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500..800&family=JetBrains+Mono:wght@400;500&family=Source+Sans+3:ital,wght@0,400;0,600;1,400&display=swap"
+    />
+    <script is:inline>
+      try {
+        const t = localStorage.getItem('theme');
+        if (t) document.documentElement.dataset.theme = t;
+      } catch (e) {}
+    </script>
+    <script type="application/ld+json" set:html={JSON.stringify(jsonLd)} />
+  </head>
+  <body>
+    <a class="skip" href="#main">Skip to content</a>
+    <header class="masthead">
+      <div class="wrap bar">
+        <a class="brand" href="/" aria-label={`${SITE.name} home`}>
+          <span class="brand-mark"><img src="/images/logo-160.png" alt="" width="40" height="40" /></span>
+          <span class="brand-text">
+            <span class="brand-name">The Courtney Group</span>
+            <span class="brand-sub">Molecular Virology · QUB</span>
+          </span>
+        </a>
+        <nav aria-label="Main">
+          <ul class="nav" id="nav">
+            {
+              NAV.map((item) => (
+                <li>
+                  <a href={item.href} aria-current={path.startsWith(item.href) ? 'page' : undefined}>
+                    {item.label}
+                  </a>
+                </li>
+              ))
+            }
+          </ul>
+        </nav>
+        <div class="tools">
+          <button class="icon-btn" id="theme-toggle" type="button" aria-label="Switch light or dark theme">
+            <svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><path fill="currentColor" d="M12 3a9 9 0 1 0 9 9 7 7 0 0 1-9-9Z"></path></svg>
+          </button>
+          <button class="icon-btn menu-btn" id="menu-toggle" type="button" aria-expanded="false" aria-controls="nav" aria-label="Open menu">
+            <svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true"><path fill="currentColor" d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"></path></svg>
+          </button>
+        </div>
+      </div>
+    </header>
+
+    <main id="main">
+      <slot />
+    </main>
+
+    <footer class="footer">
+      <div class="strand" aria-hidden="true">
+        <span>5′-{VRNA_5}</span><span class="strand-gap"></span><span>{VRNA_3}-3′</span>
+      </div>
+      <div class="wrap footer-grid">
+        <div class="footer-brand">
+          <img src="/images/logo-160.png" alt="The Courtney Group logo" width="72" height="72" />
+          <p><strong>The Courtney Group</strong><br />Led by Dr David Courtney</p>
+        </div>
+        <address>
+          {SITE.address.map((line) => <span>{line}</span>)}
+        </address>
+        <div class="footer-links">
+          <a href={`mailto:${SITE.email}`}>{SITE.email}</a>
+          {SITE.profiles.qub && <a href={SITE.profiles.qub}>QUB profile</a>}
+          {SITE.profiles.linkedin && <a href={SITE.profiles.linkedin}>LinkedIn</a>}
+          {SITE.profiles.orcid && <a href={SITE.profiles.orcid}>ORCID</a>}
+          {SITE.profiles.pure && <a href={SITE.profiles.pure}>Publications on QUB Pure</a>}
+          {SITE.profiles.x && <a href={SITE.profiles.x}>@TheCourtneyLab</a>}
+          {SITE.profiles.scholar && <a href={SITE.profiles.scholar}>Google Scholar</a>}
+          <a href="/rss.xml">News feed (RSS)</a>
+          <a href="/credits/">Image credits</a>
+        </div>
+      </div>
+      <div class="wrap fine">
+        <p>The strand above is the conserved 5′ and 3′ ends shared by every influenza A genome segment.</p>
+        <p>© {new Date().getFullYear()} The Courtney Group, Queen’s University Belfast</p>
+      </div>
+    </footer>
+
+    <script>
+      const root = document.documentElement;
+      document.getElementById('theme-toggle')?.addEventListener('click', () => {
+        const dark = root.dataset.theme
+          ? root.dataset.theme === 'dark'
+          : window.matchMedia('(prefers-color-scheme: dark)').matches;
+        const next = dark ? 'light' : 'dark';
+        root.dataset.theme = next;
+        try {
+          localStorage.setItem('theme', next);
+        } catch (e) {}
+      });
+      const menu = document.getElementById('menu-toggle');
+      const nav = document.getElementById('nav');
+      menu?.addEventListener('click', () => {
+        const open = menu.getAttribute('aria-expanded') === 'true';
+        menu.setAttribute('aria-expanded', String(!open));
+        nav?.classList.toggle('open', !open);
+      });
+    </script>
+
+    <style>
+      .skip {
+        position: absolute;
+        left: -999px;
+        top: 8px;
+        background: var(--saffron);
+        color: #0f2433;
+        padding: 8px 14px;
+        border-radius: 8px;
+        z-index: 100;
+      }
+      .skip:focus {
+        left: 8px;
+      }
+      .masthead {
+        position: sticky;
+        top: env(safe-area-inset-top, 0px);
+        z-index: 50;
+        background: color-mix(in srgb, var(--masthead) 94%, transparent);
+        backdrop-filter: blur(10px);
+        color: var(--masthead-ink);
+        border-bottom: 1px solid rgb(255 255 255 / 8%);
+      }
+      .bar {
+        display: flex;
+        align-items: center;
+        gap: 20px;
+        min-height: 68px;
+      }
+      .brand {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        color: inherit;
+        text-decoration: none;
+        margin-right: auto;
+      }
+      .brand-mark {
+        width: 44px;
+        height: 44px;
+        border-radius: 50%;
+        background: #fff;
+        display: grid;
+        place-items: center;
+        flex: none;
+      }
+      .brand-mark img {
+        width: 40px;
+        height: 40px;
+      }
+      .brand-text {
+        display: grid;
+        line-height: 1.1;
+      }
+      .brand-name {
+        font-family: var(--font-display);
+        font-weight: 700;
+        font-size: 1.08rem;
+      }
+      .brand-sub {
+        font-family: var(--font-mono);
+        font-size: 0.68rem;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+        opacity: 0.7;
+      }
+      .nav {
+        list-style: none;
+        display: flex;
+        gap: 4px;
+        margin: 0;
+        padding: 0;
+      }
+      .nav a {
+        color: inherit;
+        text-decoration: none;
+        padding: 8px 12px;
+        border-radius: 999px;
+        font-weight: 600;
+        font-size: 0.97rem;
+      }
+      .nav a:hover {
+        background: rgb(255 255 255 / 8%);
+      }
+      .nav a[aria-current='page'] {
+        background: rgb(255 255 255 / 12%);
+        box-shadow: inset 0 -2px 0 #e9a52b;
+      }
+      .tools {
+        display: flex;
+        gap: 6px;
+      }
+      .icon-btn {
+        background: transparent;
+        border: 1px solid rgb(255 255 255 / 18%);
+        color: inherit;
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+        display: grid;
+        place-items: center;
+        cursor: pointer;
+      }
+      .menu-btn {
+        display: none;
+      }
+      @media (max-width: 960px) {
+        .menu-btn {
+          display: grid;
+        }
+        nav {
+          order: 3;
+        }
+        .nav {
+          display: none;
+          position: absolute;
+          left: 0;
+          right: 0;
+          top: 68px;
+          flex-direction: column;
+          background: var(--masthead);
+          padding: 12px var(--gutter) 20px;
+          border-bottom: 1px solid rgb(255 255 255 / 10%);
+        }
+        .nav.open {
+          display: flex;
+        }
+        .nav a {
+          display: block;
+          padding: 12px;
+        }
+      }
+      .footer {
+        background: var(--masthead);
+        color: var(--masthead-ink);
+        margin-top: 0;
+      }
+      .strand {
+        font-family: var(--font-mono);
+        font-size: clamp(0.7rem, 1.6vw, 0.95rem);
+        letter-spacing: 0.32em;
+        display: flex;
+        align-items: center;
+        gap: 16px;
+        padding: 20px var(--gutter);
+        color: #e9a52b;
+        border-bottom: 1px solid rgb(255 255 255 / 8%);
+        overflow: hidden;
+        white-space: nowrap;
+      }
+      .strand-gap {
+        flex: 1;
+        min-width: 24px;
+        height: 2px;
+        background: repeating-linear-gradient(90deg, #2bb3b8 0 8px, transparent 8px 14px);
+      }
+      .footer-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+        gap: 32px;
+        padding-block: 48px 32px;
+      }
+      .footer-brand {
+        display: flex;
+        gap: 14px;
+        align-items: center;
+      }
+      .footer-brand img {
+        background: #fff;
+        border-radius: 50%;
+        padding: 4px;
+      }
+      address {
+        font-style: normal;
+        display: grid;
+        opacity: 0.85;
+      }
+      .footer-links {
+        display: grid;
+        gap: 6px;
+        align-content: start;
+      }
+      .footer-links a {
+        color: #7fd3d6;
+        overflow-wrap: anywhere;
+      }
+      .fine {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-between;
+        gap: 8px 24px;
+        padding-block: 20px 32px;
+        font-size: var(--step--1);
+        opacity: 0.65;
+        border-top: 1px solid rgb(255 255 255 / 8%);
+      }
+    </style>
+  </body>
+</html>

@@ -1,0 +1,40 @@
+---
+import Base from '../../../layouts/Base.astro';
+import NewsCard from '../../../components/NewsCard.astro';
+import { getNews, tagSlug } from '../../../lib/news';
+import { NEWS_TAGS } from '../../../content.config';
+
+export async function getStaticPaths() {
+  const posts = await getNews();
+  return NEWS_TAGS.filter((t) => posts.some((p) => p.data.tags.includes(t))).map((t) => ({
+    params: { tag: tagSlug(t) },
+    props: { tag: t, posts: posts.filter((p) => p.data.tags.includes(t)) },
+  }));
+}
+const { tag, posts } = Astro.props;
+---
+
+<Base title={`${tag} news`} description={`${tag} news from The Courtney Group at Queen’s University Belfast.`}>
+  <section class="page-hero">
+    <div class="wrap">
+      <p class="eyebrow"><a class="back" href="/news/">News</a> / {tag}</p>
+      <h1>{tag}</h1>
+    </div>
+  </section>
+  <section class="section">
+    <div class="wrap grid">
+      {posts.map((p) => <NewsCard post={p} />)}
+    </div>
+  </section>
+</Base>
+
+<style>
+  .back {
+    color: inherit;
+  }
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 22px;
+  }
+</style>

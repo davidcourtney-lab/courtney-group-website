@@ -1,0 +1,101 @@
+---
+import Base from '../../layouts/Base.astro';
+import NewsCard from '../../components/NewsCard.astro';
+import { getNews, tagSlug } from '../../lib/news';
+import { NEWS_TAGS } from '../../content.config';
+
+const posts = await getNews();
+const used = NEWS_TAGS.filter((t) => posts.some((p) => p.data.tags.includes(t)));
+const [first, ...rest] = posts;
+---
+
+<Base title="News" description="News from The Courtney Group: papers, funding, conferences, graduations and our work in the community.">
+  <section class="page-hero">
+    <div class="wrap">
+      <p class="eyebrow">News</p>
+      <h1>What the lab has been up to</h1>
+      <p class="lede">Papers accepted, conferences, graduations and our work in the community. Follow along by <a class="light" href="/rss.xml">RSS</a>.</p>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="wrap">
+      <div class="filters" role="group" aria-label="Filter news by topic">
+        <button type="button" class="chip" aria-pressed="true" data-tag="">All</button>
+        {used.map((t) => <button type="button" class="chip" aria-pressed="false" data-tag={t}>{t}</button>)}
+      </div>
+      <noscript>
+        <p class="tag-links">{used.map((t) => <a class="tag" href={`/news/tag/${tagSlug(t)}/`}>{t}</a>)}</p>
+      </noscript>
+      {first && <div class="lead"><NewsCard post={first} feature /></div>}
+      <div class="grid">
+        {rest.map((p) => <NewsCard post={p} />)}
+      </div>
+      <p class="empty" hidden>No posts with this tag yet.</p>
+    </div>
+  </section>
+</Base>
+
+<script>
+  const chips = document.querySelectorAll<HTMLButtonElement>('.chip');
+  const cards = document.querySelectorAll<HTMLElement>('[data-tags]');
+  const empty = document.querySelector<HTMLElement>('.empty');
+  chips.forEach((chip) =>
+    chip.addEventListener('click', () => {
+      const tag = chip.dataset.tag ?? '';
+      chips.forEach((c) => c.setAttribute('aria-pressed', String(c === chip)));
+      let shown = 0;
+      cards.forEach((card) => {
+        const match = !tag || (card.dataset.tags ?? '').split('|').includes(tag);
+        card.hidden = !match;
+        if (match) shown++;
+      });
+      if (empty) empty.hidden = shown > 0;
+    }),
+  );
+</script>
+
+<style>
+  .light {
+    color: #7fd3d6;
+  }
+  .filters {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-bottom: 32px;
+  }
+  .chip {
+    font: inherit;
+    font-size: 0.92rem;
+    font-weight: 600;
+    padding: 8px 16px;
+    border-radius: 999px;
+    border: 1px solid var(--line);
+    background: var(--surface);
+    color: var(--ink);
+    cursor: pointer;
+  }
+  .chip[aria-pressed='true'] {
+    background: var(--ink);
+    color: var(--bg);
+    border-color: var(--ink);
+  }
+  .lead {
+    margin-bottom: 24px;
+  }
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 22px;
+  }
+  .empty {
+    color: var(--muted);
+  }
+  .tag-links {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+    margin-bottom: 24px;
+  }
+</style>
