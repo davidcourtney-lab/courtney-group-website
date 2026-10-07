@@ -1,0 +1,11 @@
+// Cloudflare deploy settings. The site is plain static files in dist/,
+// so Cloudflare just uploads them; no server code or adapter is needed.
+{
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "name": "courtney-group",
+  "compatibility_date": "2026-10-01",
+  "assets": {
+    "directory": "./dist",
+    "not_found_handling": "404-page"
+  }
+}
