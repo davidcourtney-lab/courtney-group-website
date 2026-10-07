@@ -47,48 +47,39 @@ function initials(name: string) {
           <div class:list={['people', { solo: g.name === 'Principal Investigator' }]}>
             {g.people.map(({ m, Content }) => (
               <article class="person">
-                <button class="flip" type="button" aria-label={`Show ${m.data.name}'s favourite film`} aria-pressed="false">
-                  <span class="face front">
-                    {m.data.photo ? (
-                      <img src={m.data.photo} alt={m.data.name} loading="lazy" width="700" height="700" />
-                    ) : (
-                      <span class="initials">{initials(m.data.name)}</span>
-                    )}
-                  </span>
-                  <span class="face back">
-                    <span class="ticket-label">Favourite film</span>
-                    <span class="film">{m.data.film ?? 'To be added'}</span>
-                    {m.data.filmYear && <span class="year">{m.data.filmYear}</span>}
-                    {m.data.imdb && ratings[m.data.imdb] && (
-                      <span class="imdb-badge" aria-label={`IMDb rating ${ratings[m.data.imdb].rating} out of 10`}>
-                        <span class="imdb-logo">IMDb</span> ★ {ratings[m.data.imdb].rating.toFixed(1)}
-                      </span>
-                    )}
-                    <span class="perf" aria-hidden="true" />
-                  </span>
-                </button>
+                <div class="card">
+                  <button class="flip" type="button" aria-label={`Show ${m.data.name}'s favourite film`} aria-pressed="false">
+                    <span class="face front">
+                      {m.data.photo ? (
+                        <img src={m.data.photo} alt={m.data.name} loading="lazy" width="700" height="700" />
+                      ) : (
+                        <span class="initials">{initials(m.data.name)}</span>
+                      )}
+                    </span>
+                    <span class:list={['face back', { 'has-link': m.data.imdb }]}>
+                      <span class="ticket-label">Favourite film</span>
+                      <span class="film">{m.data.film ?? 'To be added'}</span>
+                      {m.data.filmYear && <span class="year">{m.data.filmYear}</span>}
+                      {m.data.imdb && ratings[m.data.imdb] && (
+                        <span class="imdb-badge" aria-label={`IMDb rating ${ratings[m.data.imdb].rating} out of 10`}>
+                          <span class="imdb-logo">IMDb</span> ★ {ratings[m.data.imdb].rating.toFixed(1)}/10
+                        </span>
+                      )}
+                      <span class="perf" aria-hidden="true" />
+                    </span>
+                  </button>
+                  {m.data.imdb && (
+                    <a class="imdb-link" href={imdbUrl(m.data.imdb)} target="_blank" rel="noopener">
+                      View on IMDb <span aria-hidden="true">↗</span>
+                    </a>
+                  )}
+                </div>
                 <div class="info">
                   <h3>{m.data.name}</h3>
                   <p class="role">{m.data.role}</p>
                   <div class="bio">
                     <Content />
                   </div>
-                  <p class="film-inline">
-                    <span class="film-label">Favourite film</span> {m.data.film ?? 'To be added'}
-                    {m.data.filmYear && <span class="film-year"> ({m.data.filmYear})</span>}
-                  </p>
-                  {m.data.imdb && (
-                    <p class="imdb-row">
-                      {ratings[m.data.imdb] && (
-                        <span class="imdb-badge small" title={`IMDb rating, checked ${ratings[m.data.imdb].checked}`}>
-                          <span class="imdb-logo">IMDb</span> ★ {ratings[m.data.imdb].rating.toFixed(1)}/10
-                        </span>
-                      )}
-                      <a class="imdb-link" href={imdbUrl(m.data.imdb)} target="_blank" rel="noopener">
-                        View on IMDb <span aria-hidden="true">↗</span>
-                      </a>
-                    </p>
-                  )}
                   <p class="links">
                     {m.data.links.email && <a href={`mailto:${m.data.links.email}`}>Email</a>}
                     {m.data.links.orcid && <a href={m.data.links.orcid}>ORCID</a>}
@@ -225,8 +216,8 @@ function initials(name: string) {
     align-content: center;
     justify-items: center;
     text-align: center;
-    gap: 10px;
-    padding: 28px;
+    gap: 8px;
+    padding: 22px;
     position: relative;
     border: 2px dashed #e9a52b;
   }
@@ -239,7 +230,7 @@ function initials(name: string) {
   }
   .film {
     font-family: var(--font-display);
-    font-size: var(--step-2);
+    font-size: clamp(1.05rem, 8.5cqi, 2rem);
     font-weight: 700;
     line-height: 1.1;
   }
@@ -247,11 +238,19 @@ function initials(name: string) {
     font-family: var(--font-mono);
     opacity: 0.7;
   }
-  .flip:hover .front,
+  .card {
+    position: relative;
+    display: grid;
+    container-type: inline-size;
+  }
+  .back.has-link {
+    padding-bottom: 64px;
+  }
+  .card:hover .front,
   .flip[aria-pressed='true'] .front {
     transform: rotateY(-180deg);
   }
-  .flip:hover .back,
+  .card:hover .back,
   .flip[aria-pressed='true'] .back {
     transform: rotateY(0deg);
   }
@@ -268,15 +267,6 @@ function initials(name: string) {
     color: var(--muted);
     max-width: 68ch;
   }
-  .film-inline {
-    font-size: 0.95rem;
-  }
-  .imdb-row {
-    display: flex;
-    flex-wrap: wrap;
-    align-items: center;
-    gap: 10px;
-  }
   .imdb-badge {
     display: inline-flex;
     align-items: center;
@@ -284,10 +274,6 @@ function initials(name: string) {
     font-weight: 700;
     font-size: 0.95rem;
     color: #f5efe0;
-  }
-  .imdb-badge.small {
-    color: var(--ink);
-    font-size: 0.85rem;
   }
   .imdb-logo {
     background: #f5c518;
@@ -300,32 +286,34 @@ function initials(name: string) {
     border-radius: 4px;
   }
   .imdb-link {
+    position: absolute;
+    left: 50%;
+    bottom: 18px;
+    transform: translateX(-50%);
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.3s ease 0.15s;
+    white-space: nowrap;
     display: inline-flex;
     align-items: center;
     gap: 4px;
     padding: 5px 12px;
     border-radius: 999px;
-    border: 1px solid var(--line);
-    background: var(--surface);
-    color: var(--ink);
+    border: 1px solid #f5c518;
+    background: #f5c518;
+    color: #000;
     font-size: 0.85rem;
     font-weight: 600;
     text-decoration: none;
   }
+  .card:hover .imdb-link,
+  .card:has(.flip[aria-pressed='true']) .imdb-link,
+  .imdb-link:focus-visible {
+    opacity: 1;
+    pointer-events: auto;
+  }
   .imdb-link:hover {
-    border-color: #f5c518;
-    background: color-mix(in srgb, #f5c518 15%, var(--surface));
-  }
-  .film-year {
-    color: var(--muted);
-  }
-  .film-inline .film-label {
-    font-family: var(--font-mono);
-    font-size: 0.72rem;
-    letter-spacing: 0.08em;
-    text-transform: uppercase;
-    color: var(--maroon);
-    margin-right: 6px;
+    background: #ffd84d;
   }
   .links {
     display: flex;
