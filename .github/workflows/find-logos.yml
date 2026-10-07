@@ -14,7 +14,7 @@ jobs:
           node-version: 22
       - run: node scripts/find-funder-logos.mjs
       - run: |
-          git add public/images/funders/candidates
+          git add public/images/funders
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git commit -m "Funder logo candidates (temporary)" && git pull --rebase && git push || echo nothing
