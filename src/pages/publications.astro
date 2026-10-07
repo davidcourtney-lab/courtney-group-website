@@ -1,9 +1,12 @@
 ---
 import Base from '../layouts/Base.astro';
-import { publications, pubLink } from '../data/publications';
+import { publications } from '../data/publications';
+import { citationStats, citationsFor, paperLink, totalCitations } from '../data/citations';
 import { SITE } from '../data/site';
 
 const years = [...new Set(publications.map((p) => p.year))].sort((a, b) => b - a);
+const author = citationStats.author;
+const listed = totalCitations(publications);
 const bold = (authors: string) => authors.replace(/(Courtney DG|Courtney D)(#|\*)?/g, '<strong>$1$2</strong>');
 ---
 
@@ -17,12 +20,24 @@ const bold = (authors: string) => authors.replace(/(Courtney DG|Courtney D)(#|\*
         {SITE.profiles.orcid && <a class="light" href={SITE.profiles.orcid}>ORCID</a>}
         {SITE.profiles.pure && <> or <a class="light" href={SITE.profiles.pure}>Queen’s Pure</a></>}.
       </p>
+      {
+        author && (
+          <dl class="metrics">
+            <div><dt>Citations</dt><dd>{author.citations.toLocaleString('en-GB')}</dd></div>
+            {author.hIndex && <div><dt>h-index</dt><dd>{author.hIndex}</dd></div>}
+            {listed > 0 && <div><dt>Citations of papers below</dt><dd>{listed.toLocaleString('en-GB')}</dd></div>}
+          </dl>
+        )
+      }
     </div>
   </section>
 
   <section class="section">
     <div class="wrap pubs">
-      <p class="legend"><span class="lab-dot"></span> From The Courtney Group at Queen’s · * co-first author · # co-senior author</p>
+      <p class="legend">
+        <span class="lab-dot"></span> From The Courtney Group at Queen’s · * co-first author · # co-senior author
+        {citationStats.updated && <span class="updated">· Citation counts from OpenAlex, updated weekly (last {citationStats.updated})</span>}
+      </p>
       {
         years.map((y) => (
           <section class="year-block" aria-labelledby={`y${y}`}>
@@ -32,9 +47,12 @@ const bold = (authors: string) => authors.replace(/(Courtney DG|Courtney D)(#|\*
                 .filter((p) => p.year === y)
                 .map((p) => (
                   <li class:list={{ lab: p.lab }}>
-                    <a class="title" href={pubLink(p)}>{p.title}</a>
+                    <a class="title" href={paperLink(p)}>{p.title}</a>
                     <span class="authors" set:html={bold(p.authors)} />
-                    <span class="journal">{p.journal}</span>
+                    <span class="journal">
+                      {p.journal}
+                      {citationsFor(p) && <span class="cites">Cited {citationsFor(p)!.cites.toLocaleString('en-GB')}</span>}
+                    </span>
                   </li>
                 ))}
             </ol>
@@ -60,6 +78,45 @@ const bold = (authors: string) => authors.replace(/(Courtney DG|Courtney D)(#|\*
     align-items: center;
     gap: 8px;
     flex-wrap: wrap;
+  }
+  .metrics {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px 40px;
+    margin: 12px 0 0;
+  }
+  .metrics div {
+    display: grid;
+    gap: 2px;
+  }
+  .metrics dt {
+    font-family: var(--font-mono);
+    font-size: 0.74rem;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    opacity: 0.75;
+    order: 2;
+  }
+  .metrics dd {
+    margin: 0;
+    font-family: var(--font-display);
+    font-weight: 800;
+    font-size: var(--step-3);
+    line-height: 1;
+    color: #e9a52b;
+    font-variant-numeric: tabular-nums;
+  }
+  .cites {
+    font-style: normal;
+    font-family: var(--font-mono);
+    font-size: 0.74rem;
+    letter-spacing: 0.03em;
+    margin-left: 10px;
+    padding: 2px 9px;
+    border-radius: 999px;
+    background: var(--teal-soft);
+    color: var(--ink);
+    white-space: nowrap;
   }
   .lab-dot {
     width: 12px;

@@ -1,0 +1,278 @@
+---
+import Base from '../layouts/Base.astro';
+import { SITE } from '../data/site';
+
+const offers = [
+  {
+    title: 'Scientific advice and consultancy',
+    text: 'Expert input on antiviral and RNA therapeutic programmes: target assessment, experimental design, data review, scientific due diligence and advisory board roles.',
+  },
+  {
+    title: 'Sponsored and collaborative research',
+    text: 'Projects run in our lab with your team, from focused proof-of-concept studies to longer partnerships, including joint applications to Innovate UK, UKRI and Horizon Europe schemes.',
+  },
+  {
+    title: 'Industry-partnered PhD studentships',
+    text: 'Co-supervised PhD projects that give your company a dedicated researcher on a shared question, and give the student real industry experience.',
+  },
+  {
+    title: 'Talks and training',
+    text: 'Seminars and workshops for R&D teams on influenza and respiratory virus biology, RNA modifications and RNA therapeutics.',
+  },
+];
+
+const expertise = [
+  {
+    title: 'RNA therapeutics',
+    text: 'Design and testing of siRNA and allele-specific CRISPR/Cas9 therapies, carried through to in vivo models during David’s PhD and postdoctoral work.',
+  },
+  {
+    title: 'Antiviral discovery',
+    text: 'Screening compounds against respiratory viruses in human airway cells, including a drug repurposing platform that identified a candidate against SARS-CoV-2.',
+  },
+  {
+    title: 'Viral RNA biology',
+    text: 'How influenza A virus RNA is modified, exported, translated and trafficked, and which host proteins it depends on at each step.',
+  },
+  {
+    title: 'RNA modifications',
+    text: 'Mapping and functional study of m6A, m5C and pseudouridine on viral and cellular RNAs, building on David’s papers in Cell Host & Microbe and mBio.',
+  },
+  {
+    title: 'RNA–protein interactions',
+    text: 'Capturing the proteins that bind a given RNA inside infected cells, and testing what each one does.',
+  },
+  {
+    title: 'Respiratory virus models',
+    text: 'Influenza A virus, RSV and SARS-CoV-2 in cell lines and airway epithelial cultures, with reverse genetics and reporter viruses.',
+  },
+];
+
+const record = [
+  { value: '12 months', label: 'in R&D at GlaxoSmithKline' },
+  { value: '3', label: 'US patent applications, including antiviral compounds' },
+  { value: '€1.8M+', label: 'competitive funding won as sole PI' },
+  { value: '3', label: 'leading institutes: Duke, Institut Pasteur, Queen’s' },
+];
+
+const subject = encodeURIComponent('Industry enquiry via davidgcourtney.com');
+---
+
+<Base
+  title="Work with us: industry and consultancy"
+  description="Work with Dr David Courtney and The Courtney Group at Queen’s University Belfast: scientific consultancy, sponsored research and industry partnerships in antivirals, RNA therapeutics and respiratory virology."
+>
+  <section class="page-hero">
+    <div class="wrap">
+      <p class="eyebrow">Work with us</p>
+      <h1>Virology and RNA expertise for your R&amp;D</h1>
+      <p class="lede">
+        We work with biotech and pharmaceutical companies, investors and research organisations on antivirals, RNA
+        therapeutics and respiratory virus biology, as advisers, collaborators and research partners.
+      </p>
+      <p><a class="btn primary" href={`mailto:${SITE.email}?subject=${subject}`}>Start a conversation</a></p>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="wrap">
+      <div class="section-head">
+        <p class="eyebrow">How we can help</p>
+        <h2>Ways to work together</h2>
+      </div>
+      <div class="cards">
+        {
+          offers.map((o, i) => (
+            <article>
+              <span class="num">0{i + 1}</span>
+              <h3>{o.title}</h3>
+              <p>{o.text}</p>
+            </article>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  <section class="section record-band">
+    <div class="wrap record">
+      {
+        record.map((r) => (
+          <div>
+            <span class="value">{r.value}</span>
+            <span class="label">{r.label}</span>
+          </div>
+        ))
+      }
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="wrap">
+      <div class="section-head">
+        <p class="eyebrow">Expertise</p>
+        <h2>What we know well</h2>
+        <p class="lede">
+          David has worked on RNA medicines since his PhD and spent a year inside industry R&amp;D at GlaxoSmithKline. The
+          lab combines that translational outlook with deep knowledge of how respiratory viruses use host RNA machinery.
+        </p>
+      </div>
+      <div class="expertise">
+        {
+          expertise.map((e) => (
+            <div>
+              <h3>{e.title}</h3>
+              <p>{e.text}</p>
+            </div>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="wrap how-grid">
+      <div class="prose">
+        <p class="eyebrow">How it works</p>
+        <h2>Simple to set up</h2>
+        <ol>
+          <li><strong>A first conversation.</strong> Email David with a short outline. An initial call can take place under a confidentiality agreement if you need one.</li>
+          <li><strong>A clear scope.</strong> We agree the question, the deliverables and the timeline.</li>
+          <li><strong>A contract through Queen’s.</strong> Agreements are arranged through Queen’s University Belfast, which handles contracts, confidentiality and intellectual property in the usual way.</li>
+        </ol>
+      </div>
+      <aside class="card">
+        <h3>About David</h3>
+        <p>
+          Senior Lecturer in Molecular Virology at Queen’s University Belfast, ERC Starting Grant holder, UK
+          Ambassador for the European Research Council and member of the BBSRC Panel of Experts, with postdoctoral
+          training at Duke University and Institut Pasteur.
+        </p>
+        <p><a href="/david-courtney/">Full profile</a> · <a href="/david-courtney-cv.pdf">CV (PDF)</a> · <a href="/publications/">Publications</a></p>
+      </aside>
+    </div>
+  </section>
+
+  <section class="section contact">
+    <div class="wrap contact-grid">
+      <div class="prose">
+        <p class="eyebrow">Get in touch</p>
+        <h2>Tell us what you are working on</h2>
+        <p>A few lines on your programme and what you need is plenty.</p>
+        <p><a class="btn" href={`mailto:${SITE.email}?subject=${subject}`}>{SITE.email}</a></p>
+      </div>
+      <address>
+        {SITE.address.map((l) => <span>{l}</span>)}
+      </address>
+    </div>
+  </section>
+</Base>
+
+<style>
+  .page-hero .btn.primary {
+    background: #e9a52b;
+    border-color: #e9a52b;
+    color: #0f2433;
+    margin-top: 8px;
+  }
+  .cards {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 20px;
+  }
+  .cards article {
+    display: grid;
+    gap: 10px;
+    align-content: start;
+    padding: 28px;
+    border-radius: var(--radius);
+    background: var(--surface);
+    border: 1px solid var(--line);
+  }
+  .num {
+    font-family: var(--font-mono);
+    color: var(--saffron);
+    font-weight: 500;
+  }
+  .cards h3 {
+    font-size: var(--step-1);
+  }
+  .cards p,
+  .expertise p {
+    color: var(--muted);
+  }
+  .record-band {
+    background: var(--masthead);
+    color: var(--masthead-ink);
+  }
+  .record {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: 28px;
+  }
+  .record div {
+    display: grid;
+    gap: 6px;
+  }
+  .value {
+    font-family: var(--font-display);
+    font-weight: 800;
+    font-size: var(--step-3);
+    line-height: 1;
+    color: #e9a52b;
+  }
+  .label {
+    opacity: 0.8;
+    max-width: 24ch;
+  }
+  .expertise {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 28px 36px;
+  }
+  .expertise div {
+    display: grid;
+    gap: 8px;
+    align-content: start;
+    padding-top: 18px;
+    border-top: 3px solid var(--teal);
+  }
+  .how-grid {
+    display: grid;
+    grid-template-columns: minmax(0, 1.4fr) minmax(0, 1fr);
+    gap: clamp(28px, 5vw, 64px);
+    align-items: start;
+  }
+  @media (max-width: 860px) {
+    .how-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+  .card {
+    display: grid;
+    gap: 12px;
+    padding: 26px;
+    border-radius: var(--radius);
+    background: var(--surface);
+    border: 1px solid var(--line);
+    border-left: 5px solid var(--saffron);
+  }
+  .card p {
+    color: var(--muted);
+  }
+  .contact {
+    background: var(--teal-soft);
+  }
+  .contact-grid {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    gap: 28px;
+    align-items: end;
+  }
+  address {
+    font-style: normal;
+    display: grid;
+    color: var(--muted);
+  }
+</style>

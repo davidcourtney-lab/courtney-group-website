@@ -2,6 +2,7 @@
 import Base from '../layouts/Base.astro';
 import RnaCanvas from '../components/RnaCanvas.astro';
 import NewsCard from '../components/NewsCard.astro';
+import FunderBanner from '../components/FunderBanner.astro';
 import { getNews } from '../lib/news';
 
 const news = (await getNews()).slice(0, 3);
@@ -95,6 +96,8 @@ const facts = [
     </div>
   </section>
 
+  <FunderBanner />
+
   <section class="section">
     <div class="wrap">
       <div class="section-head row">
@@ -125,6 +128,10 @@ const facts = [
           His work has appeared in <em>Cell Host &amp; Microbe</em>, <em>Nature Communications</em>, <em>Nucleic Acids
           Research</em> and <em>PLoS Pathogens</em>.
         </p>
+        <p>
+          He is also the UK Ambassador for the European Research Council.
+        </p>
+        <p><a class="btn" href="/david-courtney/">Full profile and CV</a></p>
         <p><a href="/team/">Meet the team</a> · <a href="/publications/">Publications</a></p>
       </div>
     </div>

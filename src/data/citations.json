@@ -1,0 +1,83 @@
+{
+  "updated": "2026-10-07",
+  "source": "OpenAlex and Crossref",
+  "author": {
+    "citations": 1531,
+    "hIndex": 19,
+    "works": 52
+  },
+  "papers": {
+    "myoferlinisacomponentoflatestagevrnptraffickingvesiclesforenvelopedrnaviruses": {
+      "cites": 1,
+      "doi": "10.1038/s41467-026-69386-0"
+    },
+    "agedependentexpressionandantiviralactivityofinterferonepsiloninrespiratoryepithe": {
+      "cites": 0,
+      "doi": "10.1128/jvi.00578-25"
+    },
+    "influenzaavirusrnalocalisationandtheintercedingtraffickingpathwaysofthehostcell": {
+      "cites": 10,
+      "doi": "10.1371/journal.ppat.1013090"
+    },
+    "preclinicalscreeningplatformidentifiesazatadinedimaleateasapotentrepurposedthera": {
+      "cites": 0,
+      "doi": "10.1002/jmv.70713"
+    },
+    "identifyingcellularrnabindingproteinsduringinfectionuncoversaroleformkrn2ininflu": {
+      "cites": 11,
+      "doi": "10.1371/journal.ppat.1012231"
+    },
+    "therbpomeofinfluenzaavirusmrnarevealsarolefortdp43inviralreplication": {
+      "cites": 18,
+      "doi": "10.1093/nar/gkae291"
+    },
+    "identifyingindividualpseudouridinesitesacrosstranscriptsfromhiv1infectedcells": {
+      "cites": 0,
+      "doi": "10.1007/978-1-0716-3862-0_16"
+    },
+    "epitranscriptomicregulationofhiv1geneexpressionbym5c": {
+      "cites": 261,
+      "doi": "10.1016/j.chom.2019.07.005"
+    },
+    "extensiveepitranscriptomicmethylationofaandcresiduesonmurineleukemiavirustranscr": {
+      "cites": 79,
+      "doi": "10.1128/mbio.01209-19"
+    },
+    "influenzaavirusderivedsirnasincreaseintheabsenceofns1yetfailtoinhibitvirusreplic": {
+      "cites": 37,
+      "doi": "10.1261/rna.066332.118"
+    },
+    "additionofm6atosv40latemrnasenhancesviralstructuralgeneexpressionandreplication": {
+      "cites": 153,
+      "doi": "10.1371/journal.ppat.1006919"
+    },
+    "epitranscriptomicenhancementofinfluenzaavirusgeneexpressionandreplication": {
+      "cites": 250,
+      "doi": "10.1016/j.chom.2017.08.004"
+    },
+    "towardspersonalisedallelespecificcrisprgeneeditingtotreatautosomaldominantdisord": {
+      "cites": 87,
+      "doi": "10.1038/s41598-017-16279-4"
+    },
+    "keratin12missensemutationinducestheunfoldedproteinresponseandapoptosisinmeesmann": {
+      "cites": 31,
+      "doi": "10.1093/hmg/ddw001"
+    },
+    "crisprcas9dnacleavageatsnpderivedpamenablesbothinvitroandinvivokrt12mutationspec": {
+      "cites": 129,
+      "doi": "10.1038/gt.2015.82"
+    },
+    "proteincompositionoftgfbir124candtgfbir555wassociatedaggregatessuggestsmultiplem": {
+      "cites": 39,
+      "doi": "10.1167/iovs.15-16922"
+    },
+    "sirnasilencingofthemutantkeratin12alleleincorneallimbalepithelialcellsgrownfromp": {
+      "cites": 37,
+      "doi": "10.1167/iovs.13-12957"
+    },
+    "developmentofallelespecificgenesilencingsirnasfortgfbiarg124cysinlatticecorneald": {
+      "cites": 41,
+      "doi": "10.1167/iovs.13-13279"
+    }
+  }
+}

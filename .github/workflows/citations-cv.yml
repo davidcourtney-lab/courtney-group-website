@@ -1,0 +1,53 @@
+name: Update citations and CV
+
+# Every Monday: refreshes citation counts on the Publications page and David's profile,
+# then rebuilds the downloadable CV (public/david-courtney-cv.pdf).
+# Also runs when the papers or CV details change.
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: '0 5 * * 1'
+  push:
+    paths:
+      - src/data/publications.ts
+      - src/data/cv.ts
+      - src/pages/cv.astro
+      - scripts/fetch-citations.mjs
+      - scripts/render-cv-pdf.mjs
+      - .github/workflows/citations-cv.yml
+
+permissions:
+  contents: write
+
+concurrency:
+  group: citations-cv-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+      - run: npm ci
+      - run: node scripts/fetch-citations.mjs
+        env:
+          OPENALEX_API_KEY: ${{ secrets.OPENALEX_API_KEY }}
+      - run: npm run build
+      - run: npm install --no-save playwright && npx playwright install --with-deps chromium
+      - run: node scripts/render-cv-pdf.mjs
+      - name: Commit updated citations and CV
+        run: |
+          git add src/data/citations.json public/david-courtney-cv.pdf
+          if git diff --cached --quiet; then
+            echo "No changes"
+          else
+            git config user.name "github-actions[bot]"
+            git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+            git commit -m "Update citations and CV"
+            git pull --rebase
+            git push
+          fi

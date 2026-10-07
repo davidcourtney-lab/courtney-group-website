@@ -27,11 +27,13 @@ export const SITE = {
 };
 
 export const NAV = [
+  { href: '/david-courtney/', label: 'About David' },
   { href: '/research/', label: 'Research' },
   { href: '/team/', label: 'Team' },
   { href: '/publications/', label: 'Publications' },
   { href: '/news/', label: 'News' },
   { href: '/citizenship/', label: 'Citizenship' },
+  { href: '/work-with-us/', label: 'Work with us' },
   { href: '/join/', label: 'Join us' },
 ];
 
