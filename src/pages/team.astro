@@ -1,6 +1,10 @@
 ---
 import { getCollection, render } from 'astro:content';
 import Base from '../layouts/Base.astro';
+import filmRatings from '../data/film-ratings.json';
+
+const ratings: Record<string, { rating: number; checked: string }> = filmRatings;
+const imdbUrl = (id: string) => `https://www.imdb.com/title/${id}/`;
 
 const GROUP_ORDER = ['Principal Investigator', 'Postdoctoral researchers', 'Research team', 'Research staff', 'PhD students', 'Students', 'Alumni'] as const;
 
@@ -55,6 +59,11 @@ function initials(name: string) {
                     <span class="ticket-label">Favourite film</span>
                     <span class="film">{m.data.film ?? 'To be added'}</span>
                     {m.data.filmYear && <span class="year">{m.data.filmYear}</span>}
+                    {m.data.imdb && ratings[m.data.imdb] && (
+                      <span class="imdb-badge" aria-label={`IMDb rating ${ratings[m.data.imdb].rating} out of 10`}>
+                        <span class="imdb-logo">IMDb</span> ★ {ratings[m.data.imdb].rating.toFixed(1)}
+                      </span>
+                    )}
                     <span class="perf" aria-hidden="true" />
                   </span>
                 </button>
@@ -65,8 +74,21 @@ function initials(name: string) {
                     <Content />
                   </div>
                   <p class="film-inline">
-                    <span>Favourite film</span> {m.data.film ?? 'To be added'}
+                    <span class="film-label">Favourite film</span> {m.data.film ?? 'To be added'}
+                    {m.data.filmYear && <span class="film-year"> ({m.data.filmYear})</span>}
                   </p>
+                  {m.data.imdb && (
+                    <p class="imdb-row">
+                      {ratings[m.data.imdb] && (
+                        <span class="imdb-badge small" title={`IMDb rating, checked ${ratings[m.data.imdb].checked}`}>
+                          <span class="imdb-logo">IMDb</span> ★ {ratings[m.data.imdb].rating.toFixed(1)}/10
+                        </span>
+                      )}
+                      <a class="imdb-link" href={imdbUrl(m.data.imdb)} target="_blank" rel="noopener">
+                        View on IMDb <span aria-hidden="true">↗</span>
+                      </a>
+                    </p>
+                  )}
                   <p class="links">
                     {m.data.links.email && <a href={`mailto:${m.data.links.email}`}>Email</a>}
                     {m.data.links.orcid && <a href={m.data.links.orcid}>ORCID</a>}
@@ -249,7 +271,55 @@ function initials(name: string) {
   .film-inline {
     font-size: 0.95rem;
   }
-  .film-inline span {
+  .imdb-row {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 10px;
+  }
+  .imdb-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-weight: 700;
+    font-size: 0.95rem;
+    color: #f5efe0;
+  }
+  .imdb-badge.small {
+    color: var(--ink);
+    font-size: 0.85rem;
+  }
+  .imdb-logo {
+    background: #f5c518;
+    color: #000;
+    font-family: Impact, 'Arial Black', var(--font-display);
+    font-weight: 900;
+    font-size: 0.78rem;
+    letter-spacing: 0.02em;
+    padding: 2px 6px;
+    border-radius: 4px;
+  }
+  .imdb-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    padding: 5px 12px;
+    border-radius: 999px;
+    border: 1px solid var(--line);
+    background: var(--surface);
+    color: var(--ink);
+    font-size: 0.85rem;
+    font-weight: 600;
+    text-decoration: none;
+  }
+  .imdb-link:hover {
+    border-color: #f5c518;
+    background: color-mix(in srgb, #f5c518 15%, var(--surface));
+  }
+  .film-year {
+    color: var(--muted);
+  }
+  .film-inline .film-label {
     font-family: var(--font-mono);
     font-size: 0.72rem;
     letter-spacing: 0.08em;

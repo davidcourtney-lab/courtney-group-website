@@ -41,6 +41,8 @@ const team = defineCollection({
     photo: z.string().optional(),
     film: z.string().optional(),
     filmYear: z.number().optional(),
+    // IMDb title id, e.g. tt0111161. Used for the IMDb link and rating.
+    imdb: z.string().regex(/^tt\d+$/).optional(),
     links: z
       .object({
         email: z.string().optional(),

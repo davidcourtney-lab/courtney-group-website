@@ -93,6 +93,9 @@ content:
       - name: filmYear
         label: Film year
         type: number
+      - name: imdb
+        label: IMDb id of the film (the tt… part of the IMDb link)
+        type: string
       - name: links
         label: Links
         type: object
