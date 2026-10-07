@@ -82,6 +82,16 @@ for (const p of publications) {
       .sort((a, b) => (b.cited_by_count ?? 0) - (a.cited_by_count ?? 0))[0];
   let hit = best(works);
 
+  // A known DOI is the most reliable match: look it up directly if the author list did not have it.
+  if (doi && cleanDoi(hit?.doi) !== doi) {
+    try {
+      const w = await getJson(openAlexUrl(`works/doi:${doi}`, { select: 'id,doi,title,cited_by_count' }));
+      if ((w.cited_by_count ?? 0) >= (hit?.cited_by_count ?? 0)) hit = w;
+    } catch (err) {
+      console.warn(`OpenAlex DOI lookup failed for ${doi}: ${err.message}`);
+    }
+  }
+
   if (!hit) {
     try {
       const found = await getJson(openAlexUrl('works', { search: p.title, 'per-page': '5', select: 'id,doi,title,cited_by_count' }));

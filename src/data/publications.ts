@@ -65,6 +65,7 @@ export const publications: Publication[] = [
     title: 'Epitranscriptomic regulation of HIV-1 gene expression by m5C',
     authors: 'Courtney DG, Tsai K, Bogerd HP, et al.',
     journal: 'Cell Host & Microbe 26(2): 217–227',
+    doi: '10.1016/j.chom.2019.07.005',
   },
   {
     year: 2019,
