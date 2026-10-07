@@ -2,11 +2,17 @@
 import { getCollection, render } from 'astro:content';
 import Base from '../layouts/Base.astro';
 
-const GROUP_ORDER = ['Principal Investigator', 'Postdoctoral researchers', 'Research staff', 'PhD students', 'Students', 'Alumni'] as const;
+const GROUP_ORDER = ['Principal Investigator', 'Postdoctoral researchers', 'Research team', 'Research staff', 'PhD students', 'Students', 'Alumni'] as const;
 
 const members = (await getCollection('team')).sort((a, b) => a.data.order - b.data.order || a.data.name.localeCompare(b.data.name));
 const rendered = await Promise.all(members.map(async (m) => ({ m, Content: (await render(m)).Content })));
-const groups = GROUP_ORDER.map((g) => ({ name: g, people: rendered.filter((r) => r.m.data.group === g) })).filter((g) => g.people.length);
+const byGroup = (r: (typeof rendered)[number]) => GROUP_ORDER.indexOf(r.m.data.group);
+const current = rendered.filter((r) => r.m.data.group !== 'Alumni').sort((a, b) => byGroup(a) - byGroup(b) || a.m.data.order - b.m.data.order);
+const groups = [
+  { name: 'Principal Investigator', people: current.filter((r) => r.m.data.group === 'Principal Investigator') },
+  { name: 'Current members', people: current.filter((r) => r.m.data.group !== 'Principal Investigator') },
+].filter((g) => g.people.length);
+const alumni = rendered.filter((r) => r.m.data.group === 'Alumni');
 
 function initials(name: string) {
   return name
@@ -72,6 +78,24 @@ function initials(name: string) {
         </div>
       </section>
     ))
+  }
+
+  {
+    alumni.length > 0 && (
+      <section class="section alumni-band">
+        <div class="wrap">
+          <h2 class="group-title">Alumni</h2>
+          <ul class="alumni">
+            {alumni.map(({ m }) => (
+              <li>
+                <strong>{m.data.name}</strong>
+                <span>{m.data.role}</span>
+              </li>
+            ))}
+          </ul>
+        </div>
+      </section>
+    )
   }
 
   <section class="section">
@@ -262,6 +286,26 @@ function initials(name: string) {
     text-transform: uppercase;
     color: var(--teal);
     margin-right: 8px;
+  }
+  .alumni-band {
+    background: var(--teal-soft);
+  }
+  .alumni {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+    gap: 14px 28px;
+  }
+  .alumni li {
+    display: grid;
+    padding-left: 14px;
+    border-left: 3px solid var(--teal);
+  }
+  .alumni span {
+    color: var(--muted);
+    font-size: 0.95rem;
   }
   .join-note {
     margin-top: 24px;

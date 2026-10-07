@@ -38,6 +38,7 @@ content:
       - name: image
         label: Main photo
         type: image
+        required: true
       - name: imageAlt
         label: Describe the photo (for screen readers)
         type: string
@@ -69,7 +70,7 @@ content:
         type: select
         required: true
         options:
-          values: [Principal Investigator, Postdoctoral researchers, Research staff, PhD students, Students, Alumni]
+          values: [Principal Investigator, Postdoctoral researchers, Research team, PhD students, Research staff, Students, Alumni]
       - name: order
         label: Sort order (lower comes first)
         type: number

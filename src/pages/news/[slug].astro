@@ -12,7 +12,7 @@ export async function getStaticPaths() {
 
 const { post, more } = Astro.props;
 const { Content } = await render(post);
-const { title, date, datePrecision, summary, tags, image, imageAlt } = post.data;
+const { title, date, datePrecision, summary, tags, image, imageAlt, imageCredit } = post.data;
 const url = new URL(`/news/${post.id}/`, SITE.url).href;
 const linkedin = `https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(url)}`;
 const bluesky = `https://bsky.app/intent/compose?text=${encodeURIComponent(`${title} ${url}`)}`;
@@ -31,7 +31,14 @@ const bluesky = `https://bsky.app/intent/compose?text=${encodeURIComponent(`${ti
     <div class="section">
       <div class="wrap layout">
         <div class="prose body">
-          {image && <img class="hero-img" src={image} alt={imageAlt ?? ''} />}
+          {
+            image && (
+              <figure class="hero-fig">
+                <img class="hero-img" src={image} alt={imageAlt ?? ''} />
+                {imageCredit && <figcaption>{imageCredit}</figcaption>}
+              </figure>
+            )
+          }
           <Content />
         </div>
         <aside class="share">
@@ -95,9 +102,19 @@ const bluesky = `https://bsky.app/intent/compose?text=${encodeURIComponent(`${ti
       grid-template-columns: 1fr;
     }
   }
+  .hero-fig {
+    margin: 0 0 8px;
+    display: grid;
+    gap: 8px;
+  }
   .hero-img {
     width: 100%;
-    margin-bottom: 8px;
+    background: #fff;
+  }
+  .hero-fig figcaption {
+    font-family: var(--font-mono);
+    font-size: 0.74rem;
+    color: var(--muted);
   }
   .share {
     position: sticky;

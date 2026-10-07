@@ -28,5 +28,55 @@
     "credit": "C. S. Goldsmith and A. Balish, CDC · Public domain",
     "licence": "Public domain (work of the US Centers for Disease Control and Prevention)",
     "page": "research"
+  },
+  {
+    "file": "erc-ambassadors-2025.png",
+    "source": "https://erc.europa.eu/sites/default/files/styles/erc_medium/public/2025-05/Ambassadors%20for%20the%20ERC%20network%20launched%20%20.png?h=a5775d82&itok=0LrYzFe4",
+    "sourcePage": "https://erc.europa.eu/news-events/news/ambassadors-erc-network-launched",
+    "alt": "Ambassadors for the ERC network launch",
+    "caption": "Ambassadors for the ERC network launched, April 2025.",
+    "credit": "© European Research Council",
+    "licence": "© ERC, reproduced with credit from the ERC news page",
+    "page": "news"
+  },
+  {
+    "file": "myoferlin-model-ncomms-2026.jpg",
+    "source": "https://cdn.ncbi.nlm.nih.gov/pmc/blobs/3c25/12996415/d52c47b60a81/41467_2026_69386_Fig7_HTML.jpg",
+    "sourcePage": "https://pmc.ncbi.nlm.nih.gov/articles/PMC12996415/",
+    "alt": "Model figure showing myoferlin and EHD proteins in Rab11-mediated vRNP trafficking vesicles in uninfected and influenza-infected cells",
+    "caption": "Model of myoferlin and EHD2 in Rab11-mediated vRNP trafficking (Fig. 7).",
+    "credit": "Bonazza et al., Nature Communications (2026)",
+    "licence": "CC BY 4.0",
+    "page": "news"
+  },
+  {
+    "file": "tdp43-graphical-abstract-nar-2024.jpg",
+    "source": "https://cdn.ncbi.nlm.nih.gov/pmc/blobs/18a9/11229366/ddb3427e1924/gkae291figgra1.jpg",
+    "sourcePage": "https://pmc.ncbi.nlm.nih.gov/articles/PMC11229366/",
+    "alt": "Graphical abstract of the influenza A virus mRNA RBPome study identifying TDP-43",
+    "caption": "Graphical abstract, The RBPome of influenza A virus mRNA.",
+    "credit": "Dupont et al., Nucleic Acids Research (2024)",
+    "licence": "CC BY-NC 4.0",
+    "page": "news"
+  },
+  {
+    "file": "mkrn2-fig1-ppat-2024.png",
+    "source": "https://journals.plos.org/plospathogens/article/figure/image?size=large&id=10.1371/journal.ppat.1012231.g001",
+    "sourcePage": "https://journals.plos.org/plospathogens/article?id=10.1371/journal.ppat.1012231",
+    "alt": "Figure 1 of the MKRN2 study on cellular RNA-binding proteins during influenza infection",
+    "caption": "Figure 1, Identifying cellular RNA-binding proteins during infection.",
+    "credit": "Bonazza et al., PLoS Pathogens (2024)",
+    "licence": "CC BY 4.0",
+    "page": "news"
+  },
+  {
+    "file": "rna-localisation-review-fig1-ppat-2025.png",
+    "source": "https://journals.plos.org/plospathogens/article/figure/image?size=large&id=10.1371/journal.ppat.1013090.g001",
+    "sourcePage": "https://journals.plos.org/plospathogens/article?id=10.1371/journal.ppat.1013090",
+    "alt": "Figure 1 of the review on influenza A virus RNA localisation and host trafficking pathways",
+    "caption": "Figure 1, Influenza A virus RNA localisation and the interceding trafficking pathways of the host cell.",
+    "credit": "Bonazza and Courtney, PLoS Pathogens (2025)",
+    "licence": "CC BY 4.0",
+    "page": "news"
   }
 ]

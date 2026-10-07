@@ -1,0 +1,33 @@
+name: Fetch images
+
+# Downloads the openly licensed images listed in src/data/science-images.json
+# and commits them into public/images/science/.
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths: [src/data/science-images.json]
+
+permissions:
+  contents: write
+
+jobs:
+  fetch:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - run: node scripts/fetch-science-images.mjs
+      - name: Commit new images
+        run: |
+          git add public/images/science
+          if git diff --cached --quiet; then
+            echo "No new images"
+          else
+            git config user.name "github-actions[bot]"
+            git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+            git commit -m "Fetch openly licensed images"
+            git push
+          fi

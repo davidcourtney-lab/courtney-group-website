@@ -1,6 +1,7 @@
 // Downloads the openly licensed science images listed in src/data/science-images.json
 // into public/images/science/ before each build. Images already present are skipped.
 // A failed download never fails the build; that image is simply left out of the site.
+// The "Fetch images" GitHub Action runs this and commits the files, so the repository keeps a copy.
 import { readFile, writeFile, mkdir, access } from 'node:fs/promises';
 
 const list = JSON.parse(await readFile(new URL('../src/data/science-images.json', import.meta.url), 'utf8'));

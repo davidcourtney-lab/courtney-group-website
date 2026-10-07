@@ -4,7 +4,8 @@ role: Principal Investigator · Senior Lecturer in Molecular Virology
 group: Principal Investigator
 order: 1
 photo: /images/david-square.jpg
-film: To be added
+film: The Shawshank Redemption
+filmYear: 1994
 links:
   email: david.courtney@qub.ac.uk
   orcid: https://orcid.org/0000-0002-0677-1194

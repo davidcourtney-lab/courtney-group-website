@@ -4,6 +4,9 @@ date: 2024-05-01
 datePrecision: month
 summary: By capturing the cellular proteins that bind viral RNA during infection, we uncovered a role for MKRN2 in trafficking influenza mRNA.
 tags: [Papers]
+image: /images/science/mkrn2-fig1-ppat-2024.png
+imageAlt: Figure 1 of the MKRN2 study on cellular RNA-binding proteins during influenza infection
+imageCredit: 'Fig. 1 from Bonazza et al., PLoS Pathogens (2024), CC BY 4.0'
 ---
 
 Viruses carry very few genes of their own, so they rely on the host cell's RNA-binding proteins to process, move and translate their RNA.

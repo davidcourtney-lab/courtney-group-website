@@ -23,6 +23,8 @@ const news = defineCollection({
     tags: z.array(z.enum(NEWS_TAGS)).default([]),
     image: z.string().optional(),
     imageAlt: z.string().optional(),
+    // Credit and licence shown under the photo, e.g. 'Bonazza et al., Nature Communications (2026), CC BY 4.0'.
+    imageCredit: z.string().optional(),
     draft: z.boolean().default(false),
   }),
 });
@@ -32,7 +34,7 @@ const team = defineCollection({
   schema: z.object({
     name: z.string(),
     role: z.string(),
-    group: z.enum(['Principal Investigator', 'Postdoctoral researchers', 'PhD students', 'Research staff', 'Students', 'Alumni']),
+    group: z.enum(['Principal Investigator', 'Postdoctoral researchers', 'Research team', 'PhD students', 'Research staff', 'Students', 'Alumni']),
     order: z.number().default(100),
     photo: z.string().optional(),
     film: z.string().optional(),

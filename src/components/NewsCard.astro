@@ -12,7 +12,7 @@ const { title, date, datePrecision, summary, tags, image, imageAlt } = post.data
   {
     image ? (
       <a class="media" href={`/news/${post.id}/`} tabindex="-1" aria-hidden="true">
-        <img src={image} alt={imageAlt ?? ''} loading="lazy" />
+        <img class:list={{ figure: image.startsWith('/images/science/') }} src={image} alt={imageAlt ?? ''} loading="lazy" />
       </a>
     ) : (
       <a class="media glyph" href={`/news/${post.id}/`} tabindex="-1" aria-hidden="true" style={`--c:${TAG_COLOURS[tags[0]] ?? 'var(--teal)'}`}>
@@ -58,6 +58,12 @@ const { title, date, datePrecision, summary, tags, image, imageAlt } = post.data
     height: 100%;
     object-fit: cover;
     object-position: center 30%;
+  }
+  .media img.figure {
+    object-fit: contain;
+    object-position: center;
+    background: #fff;
+    padding: 8px;
   }
   .glyph {
     display: grid;
