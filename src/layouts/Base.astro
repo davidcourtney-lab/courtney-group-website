@@ -8,9 +8,11 @@ interface Props {
   image?: string;
   type?: 'website' | 'article';
   published?: Date;
+  // Extra structured data for this page, added alongside the site-wide Person and lab entries.
+  schema?: object;
 }
 
-const { title, description = SITE.description, image = '/images/og-default.jpg', type = 'website', published } = Astro.props;
+const { title, description = SITE.description, image = '/images/og-default.jpg', type = 'website', published, schema } = Astro.props;
 
 const fullTitle = title ? `${title} | ${SITE.name}, Queen’s University Belfast` : `${SITE.name} | David Courtney Lab, Molecular Virology at Queen’s University Belfast`;
 const canonical = new URL(Astro.url.pathname, SITE.url).href;
@@ -26,6 +28,7 @@ const jsonLd = [
     name: 'David Courtney',
     alternateName: ['David G Courtney', 'Dr David Courtney', 'David G. Courtney'],
     jobTitle: 'Senior Lecturer in Molecular Virology',
+    description: 'Molecular virologist at Queen’s University Belfast, ERC Starting Grant holder and UK Ambassador for the European Research Council.',
     worksFor: { '@type': 'CollegeOrUniversity', name: 'Queen’s University Belfast', url: 'https://www.qub.ac.uk' },
     alumniOf: [
       { '@type': 'CollegeOrUniversity', name: 'Ulster University' },
@@ -33,8 +36,17 @@ const jsonLd = [
       { '@type': 'ResearchOrganization', name: 'Institut Pasteur' },
     ],
     knowsAbout: ['Molecular virology', 'Influenza A virus', 'RNA biology', 'Epitranscriptomics', 'RNA modifications', 'RNA therapeutics', 'Host-pathogen interactions'],
+    award: [
+      'ERC Starting Grant (2020)',
+      'Marie Skłodowska-Curie Global Fellowship (2017)',
+      'Churchill Fellowship, Winston Churchill Memorial Trust (2014)',
+    ],
+    hasOccupation: [
+      { '@type': 'Occupation', name: 'Senior Lecturer in Molecular Virology' },
+      { '@type': 'Occupation', name: 'UK Ambassador for the European Research Council' },
+    ],
     email: `mailto:${SITE.email}`,
-    url: SITE.url,
+    url: `${SITE.url}/david-courtney/`,
     image: `${SITE.url}/images/david-square.jpg`,
     sameAs,
   },
@@ -58,6 +70,7 @@ const jsonLd = [
     },
   },
 ];
+if (schema) jsonLd.push(schema as (typeof jsonLd)[number]);
 ---
 
 <!doctype html>
@@ -152,6 +165,8 @@ const jsonLd = [
         </address>
         <div class="footer-links">
           <a href={`mailto:${SITE.email}`}>{SITE.email}</a>
+          <a href="/david-courtney/">About David Courtney</a>
+          <a href="/david-courtney-cv.pdf">David’s CV (PDF)</a>
           {SITE.profiles.qub && <a href={SITE.profiles.qub}>QUB profile</a>}
           {SITE.profiles.linkedin && <a href={SITE.profiles.linkedin}>LinkedIn</a>}
           {SITE.profiles.orcid && <a href={SITE.profiles.orcid}>ORCID</a>}
@@ -295,7 +310,7 @@ const jsonLd = [
       .menu-btn {
         display: none;
       }
-      @media (max-width: 960px) {
+      @media (max-width: 1140px) {
         .menu-btn {
           display: grid;
         }

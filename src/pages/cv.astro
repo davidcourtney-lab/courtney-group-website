@@ -1,0 +1,254 @@
+---
+// Printable CV. scripts/render-cv-pdf.mjs prints this page to public/david-courtney-cv.pdf.
+import { SITE } from '../data/site';
+import { publications } from '../data/publications';
+import { citationStats, citationsFor } from '../data/citations';
+import { headline, summary, positions, education, roles, grants, patents, memberships, type CvItem } from '../data/cv';
+
+const selected = publications.filter((p) => p.lab || /^Courtney D/.test(p.authors)).slice(0, 10);
+const author = citationStats.author;
+const bold = (authors: string) => authors.replace(/(Courtney DG|Courtney D)(#|\*)?/g, '<strong>$1$2</strong>');
+const blocks: { title: string; items: CvItem[] }[] = [
+  { title: 'Appointments', items: positions },
+  { title: 'Education', items: education },
+  { title: 'Leadership and service', items: roles },
+  { title: 'Grants and awards', items: grants },
+  { title: 'Patent applications', items: patents },
+];
+---
+
+<!doctype html>
+<html lang="en-GB">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="robots" content="noindex" />
+    <link rel="canonical" href={`${SITE.url}/david-courtney/`} />
+    <title>David G Courtney, CV</title>
+    <link rel="icon" type="image/png" href="/favicon.png" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600..800&family=Source+Sans+3:ital,wght@0,400;0,600;1,400&display=swap"
+    />
+  </head>
+  <body>
+    <main class="page">
+      <header>
+        <div>
+          <h1>David G Courtney <span>BSc PhD</span></h1>
+          <p class="headline">{headline}</p>
+          <p class="headline">UK Ambassador for the European Research Council</p>
+        </div>
+        <div class="contact">
+          <a href={`mailto:${SITE.email}`}>{SITE.email}</a>
+          <a href={SITE.url}>davidgcourtney.com</a>
+          <a href={SITE.profiles.orcid}>ORCID 0000-0002-0677-1194</a>
+        </div>
+      </header>
+
+      <p class="summary">{summary}</p>
+      {
+        author && (
+          <p class="metrics">
+            {author.citations.toLocaleString('en-GB')} citations{author.hIndex ? ` · h-index ${author.hIndex}` : ''} · {author.works} indexed works
+            (OpenAlex, {citationStats.updated})
+          </p>
+        )
+      }
+
+      {
+        blocks.map((b) => (
+          <section>
+            <h2>{b.title}</h2>
+            {b.items.map((i) => (
+              <div class="item">
+                <span class="when">{i.when}</span>
+                <div>
+                  <strong>{i.title}</strong>
+                  {i.where && <span>, {i.where}</span>}
+                  {i.detail && <p>{i.detail}</p>}
+                </div>
+              </div>
+            ))}
+          </section>
+        ))
+      }
+
+      <section>
+        <h2>Professional memberships</h2>
+        <p>{memberships.join(' · ')}</p>
+      </section>
+
+      <section>
+        <h2>Selected publications</h2>
+        <p class="note"># co-senior author · * co-first author. Full list at davidgcourtney.com/publications and on ORCID.</p>
+        <ol class="pubs">
+          {
+            selected.map((p) => (
+              <li>
+                <span set:html={bold(p.authors)} /> ({p.year}). {p.title}. <em>{p.journal}</em>.
+                {citationsFor(p)?.cites ? <span class="cites"> Cited {citationsFor(p)!.cites}.</span> : null}
+              </li>
+            ))
+          }
+        </ol>
+      </section>
+
+      <p class="foot">Last updated {new Date().toLocaleDateString('en-GB', { day: 'numeric', month: 'long', year: 'numeric' })} · davidgcourtney.com</p>
+    </main>
+  </body>
+</html>
+
+<style>
+  @page {
+    size: A4;
+    margin: 14mm 15mm;
+  }
+  :root {
+    --ink: #0f2433;
+    --muted: #4d6170;
+    --teal: #13858b;
+    --line: #d9e3e5;
+  }
+  * {
+    box-sizing: border-box;
+  }
+  body {
+    margin: 0;
+    background: #e9eef0;
+    color: var(--ink);
+    font-family: 'Source Sans 3', 'Segoe UI', system-ui, sans-serif;
+    font-size: 9.5pt;
+    line-height: 1.38;
+  }
+  .page {
+    max-width: 210mm;
+    margin: 24px auto;
+    padding: 16mm 16mm;
+    background: #fff;
+    box-shadow: 0 8px 30px rgb(15 36 51 / 12%);
+  }
+  @media print {
+    body {
+      background: #fff;
+    }
+    .page {
+      margin: 0;
+      padding: 0;
+      box-shadow: none;
+      max-width: none;
+    }
+  }
+  @media (max-width: 700px) {
+    .page {
+      margin: 0;
+      padding: 20px 16px;
+    }
+    header {
+      grid-template-columns: 1fr !important;
+    }
+    .contact {
+      text-align: left !important;
+    }
+  }
+  a {
+    color: var(--teal);
+    text-decoration: none;
+  }
+  header {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    gap: 16px;
+    align-items: end;
+    border-bottom: 3px solid var(--ink);
+    padding-bottom: 10px;
+  }
+  h1 {
+    font-family: 'Bricolage Grotesque', 'Segoe UI', sans-serif;
+    font-size: 24pt;
+    line-height: 1;
+    margin: 0 0 6px;
+    letter-spacing: -0.02em;
+    white-space: nowrap;
+  }
+  h1 span {
+    font-size: 12pt;
+    font-weight: 600;
+    color: var(--muted);
+  }
+  .headline {
+    margin: 0;
+    font-weight: 600;
+  }
+  .contact {
+    display: grid;
+    text-align: right;
+    font-size: 9pt;
+    color: var(--muted);
+    gap: 1px;
+  }
+  .summary {
+    margin: 12px 0 4px;
+  }
+  .metrics {
+    margin: 0 0 4px;
+    font-size: 9pt;
+    color: var(--muted);
+  }
+  section {
+    margin-top: 10px;
+  }
+  h2 {
+    font-family: 'Bricolage Grotesque', 'Segoe UI', sans-serif;
+    font-size: 11pt;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: var(--teal);
+    border-bottom: 1px solid var(--line);
+    padding-bottom: 3px;
+    margin: 0 0 6px;
+    break-after: avoid;
+  }
+  section p {
+    margin: 0;
+  }
+  .item {
+    display: grid;
+    grid-template-columns: 26mm 1fr;
+    gap: 8px;
+    margin-bottom: 4px;
+    break-inside: avoid;
+  }
+  .item p {
+    color: var(--muted);
+  }
+  .when {
+    color: var(--muted);
+    font-variant-numeric: tabular-nums;
+  }
+  .note {
+    font-size: 8.5pt;
+    color: var(--muted);
+    margin-bottom: 4px !important;
+  }
+  .pubs {
+    margin: 0;
+    padding-left: 1.9em;
+    display: grid;
+    gap: 3px;
+  }
+  .pubs li {
+    break-inside: avoid;
+  }
+  .cites {
+    color: var(--muted);
+  }
+  .foot {
+    margin-top: 14px;
+    font-size: 8.5pt;
+    color: var(--muted);
+    text-align: center;
+  }
+</style>
