@@ -5,6 +5,6 @@ group: Postdoctoral researchers
 order: 10
 photo: /images/team/hannah-turkington.jpg
 film: Serenity
-filmYear: 2019
-imdb: tt6476140
+filmYear: 2005
+imdb: tt0379786
 ---
