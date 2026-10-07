@@ -18,7 +18,7 @@ export const SITE = {
   profiles: {
     qub: 'https://www.qub.ac.uk/schools/mdbs/Research/find-a-phd-supervisor/dr-david-courtney.html',
     pure: 'https://pure.qub.ac.uk/en/persons/david-courtney',
-    linkedin: '',
+    linkedin: 'https://www.linkedin.com/in/davidgcourtney-rna/',
     orcid: 'https://orcid.org/0000-0002-0677-1194',
     scholar: '',
     x: 'https://x.com/TheCourtneyLab',
