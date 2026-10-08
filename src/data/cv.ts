@@ -64,6 +64,12 @@ export const education: CvItem[] = [
 
 export const roles: CvItem[] = [
   {
+    when: '2026 –',
+    title: 'Entrepreneurial Lead, Innovate UK ICURe Discover programme',
+    where: 'Innovate UK, UK Research and Innovation',
+    detail: 'Competitively selected for the UKRI-funded programme that helps researchers test the commercial potential of their research through market discovery.',
+  },
+  {
     when: '2025 –',
     title: 'UK Ambassador for the European Research Council',
     where: 'Ambassadors for the ERC network',

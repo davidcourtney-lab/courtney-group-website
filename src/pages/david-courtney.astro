@@ -29,6 +29,7 @@ const highlights = [
   'UK Ambassador for the ERC',
   'ERC Starting Grant holder',
   'Marie Skłodowska-Curie Fellow',
+  'Innovate UK ICURe Entrepreneurial Lead',
   'BBSRC Panel of Experts',
   'MSCA panel Vice-Chair',
 ];
@@ -95,7 +96,9 @@ const schema = {
           same year the group’s first PhD students graduated. In April 2025 he was appointed the United Kingdom’s
           Ambassador for the European Research Council, one of 32 researchers making the case for investment in
           frontier science. He sits on the BBSRC Panel of Experts and is Vice-Chair of a Marie Skłodowska-Curie Actions
-          fellowship panel.
+          fellowship panel. In September 2026 he was selected as an Entrepreneurial Lead on Innovate UK’s
+          competitive, UKRI-funded ICURe Discover programme, which helps researchers take discoveries from the lab
+          towards real-world use.
         </p>
         <p>
           David is a STEM NI Ambassador and a Fellow of the Winston Churchill Memorial Trust, and regularly hosts school
@@ -502,10 +505,17 @@ const schema = {
   }
   .entries li {
     display: grid;
-    grid-template-columns: 64px minmax(0, 1fr);
+    /* Wide enough for a full range such as "2021 – 2026" in the mono font. */
+    grid-template-columns: 6.5rem minmax(0, 1fr);
     gap: 14px;
     padding-top: 16px;
     border-top: 1px solid var(--line);
+  }
+  @media (max-width: 480px) {
+    .entries li {
+      grid-template-columns: 1fr;
+      gap: 4px;
+    }
   }
   .ticks {
     margin: 4px 0 0;
