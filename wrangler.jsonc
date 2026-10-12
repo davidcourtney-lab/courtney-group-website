@@ -1,11 +1,15 @@
-// Cloudflare deploy settings. The site is plain static files in dist/,
-// so Cloudflare just uploads them; no server code or adapter is needed.
+// Cloudflare deploy settings. The site is plain static files in dist/.
+// worker/index.js is a few lines that redirect www and workers.dev to
+// davidgcourtney.com; it is not an Astro adapter, so none is needed.
 {
   "$schema": "node_modules/wrangler/config-schema.json",
   "name": "courtney-group",
   "compatibility_date": "2026-10-01",
+  "main": "./worker/index.js",
   "assets": {
     "directory": "./dist",
+    "binding": "ASSETS",
+    "run_worker_first": true,
     "not_found_handling": "404-page"
   }
 }
