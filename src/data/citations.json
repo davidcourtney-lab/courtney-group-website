@@ -1,10 +1,10 @@
 {
-  "updated": "2026-10-08",
+  "updated": "2026-10-12",
   "source": "OpenAlex and Crossref",
   "author": {
-    "citations": 1531,
+    "citations": 1428,
     "hIndex": 19,
-    "works": 52
+    "works": 47
   },
   "papers": {
     "myoferlinisacomponentoflatestagevrnptraffickingvesiclesforenvelopedrnaviruses": {
@@ -24,11 +24,11 @@
       "doi": "10.1002/jmv.70713"
     },
     "identifyingcellularrnabindingproteinsduringinfectionuncoversaroleformkrn2ininflu": {
-      "cites": 11,
+      "cites": 12,
       "doi": "10.1371/journal.ppat.1012231"
     },
     "therbpomeofinfluenzaavirusmrnarevealsarolefortdp43inviralreplication": {
-      "cites": 18,
+      "cites": 17,
       "doi": "10.1093/nar/gkae291"
     },
     "identifyingindividualpseudouridinesitesacrosstranscriptsfromhiv1infectedcells": {
@@ -36,39 +36,39 @@
       "doi": "10.1007/978-1-0716-3862-0_16"
     },
     "epitranscriptomicregulationofhiv1geneexpressionbym5c": {
-      "cites": 261,
+      "cites": 227,
       "doi": "10.1016/j.chom.2019.07.005"
     },
     "extensiveepitranscriptomicmethylationofaandcresiduesonmurineleukemiavirustranscr": {
-      "cites": 79,
+      "cites": 77,
       "doi": "10.1128/mbio.01209-19"
     },
     "influenzaavirusderivedsirnasincreaseintheabsenceofns1yetfailtoinhibitvirusreplic": {
-      "cites": 37,
+      "cites": 34,
       "doi": "10.1261/rna.066332.118"
     },
     "additionofm6atosv40latemrnasenhancesviralstructuralgeneexpressionandreplication": {
-      "cites": 153,
+      "cites": 141,
       "doi": "10.1371/journal.ppat.1006919"
     },
     "epitranscriptomicenhancementofinfluenzaavirusgeneexpressionandreplication": {
-      "cites": 250,
+      "cites": 228,
       "doi": "10.1016/j.chom.2017.08.004"
     },
     "towardspersonalisedallelespecificcrisprgeneeditingtotreatautosomaldominantdisord": {
-      "cites": 87,
+      "cites": 83,
       "doi": "10.1038/s41598-017-16279-4"
     },
     "keratin12missensemutationinducestheunfoldedproteinresponseandapoptosisinmeesmann": {
-      "cites": 31,
+      "cites": 30,
       "doi": "10.1093/hmg/ddw001"
     },
     "crisprcas9dnacleavageatsnpderivedpamenablesbothinvitroandinvivokrt12mutationspec": {
-      "cites": 129,
+      "cites": 125,
       "doi": "10.1038/gt.2015.82"
     },
     "proteincompositionoftgfbir124candtgfbir555wassociatedaggregatessuggestsmultiplem": {
-      "cites": 39,
+      "cites": 38,
       "doi": "10.1167/iovs.15-16922"
     },
     "sirnasilencingofthemutantkeratin12alleleincorneallimbalepithelialcellsgrownfromp": {
