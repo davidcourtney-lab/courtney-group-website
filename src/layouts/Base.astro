@@ -10,9 +10,11 @@ interface Props {
   published?: Date;
   // Extra structured data for this page, added alongside the site-wide Person and lab entries.
   schema?: object;
+  // Keep a page out of Google while still letting it follow the page's links.
+  noindex?: boolean;
 }
 
-const { title, description = SITE.description, image = '/images/og-default.jpg', type = 'website', published, schema } = Astro.props;
+const { title, description = SITE.description, image = '/images/og-default.jpg', type = 'website', published, schema, noindex = false } = Astro.props;
 
 const fullTitle = title ? `${title} | ${SITE.name}, Queen’s University Belfast` : `${SITE.name} | David Courtney Lab, Molecular Virology at Queen’s University Belfast`;
 const canonical = new URL(Astro.url.pathname, SITE.url).href;
@@ -82,6 +84,7 @@ if (schema) jsonLd.push(schema as (typeof jsonLd)[number]);
     <title>{fullTitle}</title>
     <meta name="description" content={description} />
     <link rel="canonical" href={canonical} />
+    {noindex && <meta name="robots" content="noindex, follow" />}
     <meta name="author" content="David Courtney" />
     <meta name="theme-color" content="#0f2433" />
     <link rel="icon" type="image/png" href="/favicon.png" />

@@ -14,7 +14,7 @@ export async function getStaticPaths() {
 const { tag, posts } = Astro.props;
 ---
 
-<Base title={`${tag} news`} description={`${tag} news from The Courtney Group at Queen’s University Belfast.`}>
+<Base noindex title={`${tag} news`} description={`${tag} news from The Courtney Group at Queen’s University Belfast.`}>
   <section class="page-hero">
     <div class="wrap">
       <p class="eyebrow"><a class="back" href="/news/">News</a> / {tag}</p>
