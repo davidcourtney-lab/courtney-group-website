@@ -1,10 +1,10 @@
 {
-  "updated": "2026-10-12",
+  "updated": "2026-10-13",
   "source": "OpenAlex and Crossref",
   "author": {
-    "citations": 1428,
+    "citations": 1418,
     "hIndex": 19,
-    "works": 47
+    "works": 45
   },
   "papers": {
     "myoferlinisacomponentoflatestagevrnptraffickingvesiclesforenvelopedrnaviruses": {
@@ -36,11 +36,11 @@
       "doi": "10.1007/978-1-0716-3862-0_16"
     },
     "epitranscriptomicregulationofhiv1geneexpressionbym5c": {
-      "cites": 227,
+      "cites": 225,
       "doi": "10.1016/j.chom.2019.07.005"
     },
     "extensiveepitranscriptomicmethylationofaandcresiduesonmurineleukemiavirustranscr": {
-      "cites": 77,
+      "cites": 76,
       "doi": "10.1128/mbio.01209-19"
     },
     "influenzaavirusderivedsirnasincreaseintheabsenceofns1yetfailtoinhibitvirusreplic": {
@@ -48,7 +48,7 @@
       "doi": "10.1261/rna.066332.118"
     },
     "additionofm6atosv40latemrnasenhancesviralstructuralgeneexpressionandreplication": {
-      "cites": 141,
+      "cites": 139,
       "doi": "10.1371/journal.ppat.1006919"
     },
     "epitranscriptomicenhancementofinfluenzaavirusgeneexpressionandreplication": {
@@ -56,7 +56,7 @@
       "doi": "10.1016/j.chom.2017.08.004"
     },
     "towardspersonalisedallelespecificcrisprgeneeditingtotreatautosomaldominantdisord": {
-      "cites": 83,
+      "cites": 82,
       "doi": "10.1038/s41598-017-16279-4"
     },
     "keratin12missensemutationinducestheunfoldedproteinresponseandapoptosisinmeesmann": {
@@ -64,7 +64,7 @@
       "doi": "10.1093/hmg/ddw001"
     },
     "crisprcas9dnacleavageatsnpderivedpamenablesbothinvitroandinvivokrt12mutationspec": {
-      "cites": 125,
+      "cites": 124,
       "doi": "10.1038/gt.2015.82"
     },
     "proteincompositionoftgfbir124candtgfbir555wassociatedaggregatessuggestsmultiplem": {
