@@ -5,7 +5,7 @@ import { SITE } from '../data/site';
 const offers = [
   {
     title: 'Scientific advice and consultancy',
-    text: 'Expert input on antiviral and RNA therapeutic programmes: target assessment, experimental design, data review, scientific due diligence and advisory board roles.',
+    text: 'Expert input on mRNA, RNA therapeutic and antiviral programmes: target assessment, experimental design, data review, scientific due diligence and advisory board roles.',
   },
   {
     title: 'Sponsored and collaborative research',
@@ -17,34 +17,34 @@ const offers = [
   },
   {
     title: 'Talks and training',
-    text: 'Seminars and workshops for R&D teams on influenza and respiratory virus biology, RNA modifications and RNA therapeutics.',
+    text: 'Seminars and workshops for R&D teams on influenza and respiratory virus biology, mRNA modifications, RNA therapeutics and antivirals.',
   },
 ];
 
 const expertise = [
   {
+    title: 'mRNA and RNA modifications',
+    text: 'How chemical marks such as m6A, m5C and pseudouridine control mRNA translation and gene expression, the same questions that shape mRNA vaccine and therapeutic design. Builds on David’s papers in Cell Host & Microbe and mBio and a US patent application on boosting transgene expression.',
+  },
+  {
     title: 'RNA therapeutics',
     text: 'Design and testing of siRNA and allele-specific CRISPR/Cas9 therapies, carried through to in vivo models during David’s PhD and postdoctoral work.',
   },
   {
-    title: 'Antiviral discovery',
-    text: 'Screening compounds against respiratory viruses in human airway cells, including a drug repurposing platform that identified a candidate against SARS-CoV-2.',
+    title: 'Antivirals',
+    text: 'Screening compounds against respiratory viruses in human airway cells, including a drug repurposing platform that identified a candidate against SARS-CoV-2, and a US patent application on new antiviral compounds.',
   },
   {
     title: 'Viral RNA biology',
     text: 'How influenza A virus RNA is modified, exported, translated and trafficked, and which host proteins it depends on at each step.',
   },
   {
-    title: 'RNA modifications',
-    text: 'Mapping and functional study of m6A, m5C and pseudouridine on viral and cellular RNAs, building on David’s papers in Cell Host & Microbe and mBio.',
-  },
-  {
     title: 'RNA–protein interactions',
     text: 'Capturing the proteins that bind a given RNA inside infected cells, and testing what each one does.',
   },
   {
-    title: 'Respiratory virus models',
-    text: 'Influenza A virus, RSV and SARS-CoV-2 in cell lines and airway epithelial cultures, with reverse genetics and reporter viruses.',
+    title: 'Virus systems',
+    text: 'Influenza A virus, RSV and SARS-CoV-2 in cell lines and airway epithelial cultures, the mucosal surface where respiratory infection starts, with reverse genetics and reporter viruses. Also HIV-1, murine leukemia virus (MLV) and AAV vectors.',
   },
 ];
 
@@ -60,15 +60,15 @@ const subject = encodeURIComponent('Industry enquiry via davidgcourtney.com');
 
 <Base
   title="Work with us: industry and consultancy"
-  description="Work with Dr David Courtney and The Courtney Group at Queen’s University Belfast: scientific consultancy, sponsored research and industry partnerships in antivirals, RNA therapeutics and respiratory virology."
+  description="Scientific consultancy, sponsored research and industry partnerships with Dr David Courtney at Queen’s University Belfast: mRNA biology, RNA therapeutics, antivirals and respiratory viruses including influenza and RSV."
 >
   <section class="page-hero">
     <div class="wrap">
       <p class="eyebrow">Work with us</p>
       <h1>Virology and RNA expertise for your R&amp;D</h1>
       <p class="lede">
-        We work with biotech and pharmaceutical companies, investors and research organisations on antivirals, RNA
-        therapeutics and respiratory virus biology, as advisers, collaborators and research partners.
+        We work with biotech and pharmaceutical companies, investors and research organisations on mRNA and RNA
+        therapeutics, antivirals and respiratory virus biology, as advisers, collaborators and research partners.
       </p>
       <p><a class="btn primary" href={`mailto:${SITE.email}?subject=${subject}`}>Start a conversation</a></p>
     </div>

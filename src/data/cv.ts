@@ -12,7 +12,7 @@ export interface CvItem {
 export const headline = 'Senior Lecturer in Molecular Virology, Queen’s University Belfast';
 
 export const summary =
-  'Molecular virologist and RNA biologist. David leads The Courtney Group at Queen’s University Belfast, which studies how influenza A virus RNA recruits host machinery to be modified, exported, translated and trafficked, and how those dependencies can be turned into RNA-based therapeutics. He has won over €1.8M in competitive funding as sole PI, sits on BBSRC and European funding panels, and represents the United Kingdom as an Ambassador for the European Research Council.';
+  'Molecular virologist and RNA biologist. David leads The Courtney Group at Queen’s University Belfast, which studies how influenza A virus RNA recruits host machinery to be modified, exported, translated and trafficked, and how those dependencies can be turned into RNA therapeutics and antivirals. His work on mRNA modifications such as m6A, m5C and pseudouridine, which control how well an mRNA is translated, bears directly on mRNA vaccines and medicines. He has won over €1.8M in competitive funding as sole PI, sits on BBSRC and European funding panels, and represents the United Kingdom as an Ambassador for the European Research Council.';
 
 export const positions: CvItem[] = [
   { when: '2025 –', title: 'Senior Lecturer in Molecular Virology', where: 'Queen’s University Belfast, UK' },
@@ -177,10 +177,12 @@ export const talks: CvItem[] = [
 export const memberships = ['Microbiology Society', 'American Society for Virology', 'RNA Society'];
 
 export const expertise = [
-  'Influenza A virus and respiratory virus biology',
-  'Viral RNA modifications (m6A, m5C, pseudouridine)',
-  'RNA–protein interactions and RNA-binding proteomics',
+  'mRNA biology: modification, translation and gene expression',
+  'RNA modifications (m6A, m5C, pseudouridine)',
   'RNA therapeutics: siRNA and allele-specific CRISPR',
-  'Antiviral discovery, screening and drug repurposing',
-  'Host–pathogen interactions in airway epithelium',
+  'Antivirals: discovery, screening and drug repurposing',
+  'Respiratory viruses: influenza A virus, RSV and SARS-CoV-2',
+  'Retroviruses (HIV-1, MLV) and AAV vectors',
+  'RNA–protein interactions and RNA-binding proteomics',
+  'Airway epithelium and mucosal interferon responses',
 ];
