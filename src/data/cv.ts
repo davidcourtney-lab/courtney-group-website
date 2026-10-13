@@ -181,7 +181,8 @@ export const expertise = [
   'RNA modifications (m6A, m5C, pseudouridine)',
   'RNA therapeutics: siRNA and allele-specific CRISPR',
   'Antivirals: discovery, screening and drug repurposing',
-  'Influenza A virus, RSV and other respiratory viruses',
+  'Respiratory viruses: influenza A virus, RSV and SARS-CoV-2',
+  'Retroviruses (HIV-1, MLV) and AAV vectors',
   'RNA–protein interactions and RNA-binding proteomics',
   'Airway epithelium and mucosal interferon responses',
 ];
