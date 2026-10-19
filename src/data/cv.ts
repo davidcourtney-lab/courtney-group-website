@@ -104,7 +104,7 @@ export const grants: CvItem[] = [
   {
     when: '2021 – 2026',
     title: 'ERC Starting Grant: PTFLU, post-transcriptional regulation of influenza A virus RNA',
-    where: 'European Research Council · sole PI · grant 948834',
+    where: 'European Research Council · sole PI · grant 949506',
     detail: '€1,568,010 to establish The Courtney Group.',
   },
   {
