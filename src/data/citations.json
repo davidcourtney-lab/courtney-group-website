@@ -1,10 +1,10 @@
 {
-  "updated": "2026-10-19",
+  "updated": "2026-10-26",
   "source": "OpenAlex and Crossref",
   "author": {
-    "citations": 1422,
+    "citations": 1424,
     "hIndex": 19,
-    "works": 46
+    "works": 47
   },
   "papers": {
     "myoferlinisacomponentoflatestagevrnptraffickingvesiclesforenvelopedrnaviruses": {
@@ -36,7 +36,7 @@
       "doi": "10.1007/978-1-0716-3862-0_16"
     },
     "epitranscriptomicregulationofhiv1geneexpressionbym5c": {
-      "cites": 226,
+      "cites": 227,
       "doi": "10.1016/j.chom.2019.07.005"
     },
     "extensiveepitranscriptomicmethylationofaandcresiduesonmurineleukemiavirustranscr": {
@@ -56,7 +56,7 @@
       "doi": "10.1016/j.chom.2017.08.004"
     },
     "towardspersonalisedallelespecificcrisprgeneeditingtotreatautosomaldominantdisord": {
-      "cites": 82,
+      "cites": 83,
       "doi": "10.1038/s41598-017-16279-4"
     },
     "keratin12missensemutationinducestheunfoldedproteinresponseandapoptosisinmeesmann": {
