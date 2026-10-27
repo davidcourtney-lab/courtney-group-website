@@ -104,7 +104,7 @@ if (schema) jsonLd.push(schema as (typeof jsonLd)[number]);
     <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
     <title>{fullTitle}</title>
     <meta name="description" content={description} />
-    <link rel="canonical" href={canonical} />
+    {!noindex && <link rel="canonical" href={canonical} />}
     {noindex && <meta name="robots" content="noindex, follow" />}
     <meta name="author" content="David Courtney" />
     <meta name="theme-color" content="#0f2433" />
