@@ -15,7 +15,7 @@ export const summary =
   'Molecular virologist and RNA biologist. David leads The Courtney Group at Queen’s University Belfast, which studies how influenza A virus RNA recruits host machinery to be modified, exported, translated and trafficked, and how those dependencies can be turned into RNA therapeutics and antivirals. His work on mRNA modifications such as m6A, m5C and pseudouridine, which control how well an mRNA is translated, bears directly on mRNA vaccines and medicines. He has won over €1.8M in competitive funding as sole PI, sits on BBSRC and European funding panels, and represents the United Kingdom as an Ambassador for the European Research Council.';
 
 export const positions: CvItem[] = [
-  { when: '2025 –', title: 'Senior Lecturer in Molecular Virology', where: 'Queen’s University Belfast, UK' },
+  { when: '2025 – present', title: 'Senior Lecturer in Molecular Virology', where: 'Queen’s University Belfast, UK' },
   {
     when: '2021 – 2025',
     title: 'Lecturer and ERC Research Fellow',
@@ -63,26 +63,31 @@ export const education: CvItem[] = [
 ];
 
 export const roles: CvItem[] = [
+  // Ongoing roles first (as "YYYY – present", newest first), then completed roles.
+  { when: '2026 – present', title: 'Elected member, Virus Division of the Microbiology Society' },
   {
-    when: '2026 –',
+    when: '2026 – present',
     title: 'Entrepreneurial Lead, Innovate UK ICURe Discover programme',
     where: 'Innovate UK, UK Research and Innovation',
     detail: 'Competitively selected for the UKRI-funded programme that helps researchers test the commercial potential of their research through market discovery.',
   },
   {
-    when: '2025 –',
+    when: '2025 – present',
     title: 'UK Ambassador for the European Research Council',
     where: 'Ambassadors for the ERC network',
     detail: 'One of 32 ERC grantees chosen to make the case for frontier research to policymakers, the media and the research community.',
   },
-  { when: 'Current', title: 'Vice-Chair, Marie Skłodowska-Curie Actions Postdoctoral Fellowships panel', where: 'European Commission' },
-  { when: '2024 –', title: 'Member, BBSRC Panel of Experts', where: 'UK Research and Innovation' },
-  { when: 'Current', title: 'Elected member, Virology Division Committee', where: 'Microbiology Society' },
+  { when: '2025 – present', title: 'Vice-Chair, Marie Skłodowska-Curie Actions Postdoctoral Fellowships panel', where: 'European Commission' },
+  { when: '2024 – present', title: 'Member, BBSRC Pool of Experts', where: 'UK Research and Innovation' },
+  { when: '2014 – present', title: 'Fellow of the Winston Churchill Memorial Trust', where: 'Churchill Fellowship, UK' },
+  { when: 'Present', title: 'Module Coordinator, MSc Research Project', where: 'Wellcome-Wolfson Institute for Experimental Medicine, Queen’s' },
+  { when: 'Present', title: 'STEM NI Ambassador', where: 'Northern Ireland' },
+  { when: '2026', title: 'Panel member, BBSRC Pioneer Awards', where: 'UK Research and Innovation' },
   {
-    when: '2024',
-    title: 'Chair and organiser, UK ERC Showcase',
+    when: '2026',
+    title: 'Organiser and chair, ERC showcase and “In Conversation” event',
     where: 'Queen’s University Belfast',
-    detail: 'Flagship event with panels featuring Nobel Laureate Prof Emmanuelle Charpentier and Prof Teresa Lambe OBE.',
+    detail: 'June 2026, during the ERC Scientific Council’s first visit to Northern Ireland: a showcase of Queen’s ERC-funded research and a fireside conversation with Nobel Laureate Prof Emmanuelle Charpentier and Prof Teresa Lambe OBE.',
   },
   {
     when: '2023 – 2024',
@@ -95,9 +100,6 @@ export const roles: CvItem[] = [
     title: 'Grant reviewer',
     where: 'MSCA (reviewer and rapporteur), US National Science Foundation panel, Swiss National Science Foundation, Polish National Science Centre',
   },
-  { when: 'Current', title: 'Module Coordinator, MSc Research Project', where: 'Wellcome-Wolfson Institute for Experimental Medicine, Queen’s' },
-  { when: 'Current', title: 'STEM NI Ambassador', where: 'Northern Ireland' },
-  { when: '2014 –', title: 'Fellow of the Winston Churchill Memorial Trust', where: 'Churchill Fellowship, UK' },
 ];
 
 export const grants: CvItem[] = [
@@ -169,7 +171,7 @@ export const media = [
 
 export const talks: CvItem[] = [
   { when: '2026', title: 'Invited speaker: Building ERC-competitive research', where: 'University of Split, Croatia' },
-  { when: '2024', title: 'Event chair: UK ERC Showcase', where: 'Queen’s University Belfast' },
+  { when: '2026', title: 'Event chair: ERC “In Conversation” with Prof Emmanuelle Charpentier and Prof Teresa Lambe OBE', where: 'Queen’s University Belfast' },
   { when: '2023', title: 'Delegate: ideation panel on RNA modification mapping', where: 'US National Academy of Sciences' },
   { when: '2020', title: 'Invited speaker: ANRS International Symposium on RNA Modifications', where: 'Institut Cochin, Paris' },
 ];
