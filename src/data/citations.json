@@ -1,8 +1,8 @@
 {
-  "updated": "2026-10-26",
+  "updated": "2026-11-02",
   "source": "OpenAlex and Crossref",
   "author": {
-    "citations": 1424,
+    "citations": 1426,
     "hIndex": 19,
     "works": 47
   },
@@ -52,7 +52,7 @@
       "doi": "10.1371/journal.ppat.1006919"
     },
     "epitranscriptomicenhancementofinfluenzaavirusgeneexpressionandreplication": {
-      "cites": 228,
+      "cites": 229,
       "doi": "10.1016/j.chom.2017.08.004"
     },
     "towardspersonalisedallelespecificcrisprgeneeditingtotreatautosomaldominantdisord": {
